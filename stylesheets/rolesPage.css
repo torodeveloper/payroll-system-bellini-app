@@ -1,0 +1,22 @@
+.roles-table {
+    text-align: center;
+    overflow-y: auto;
+}
+
+/* For WebKit browsers */
+.roles-table::-webkit-scrollbar {
+    width: 2px; /* Adjust the width as needed */
+}
+
+.roles-table::-webkit-scrollbar-thumb {
+    background-color: green;
+}
+
+/* For Firefox */
+.roles-table *::-webkit-scrollbar {
+    width: 2px; /* Adjust the width as needed */
+}
+
+.roles-table *::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 255, 255);
+}

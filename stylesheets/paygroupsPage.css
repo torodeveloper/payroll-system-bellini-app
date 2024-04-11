@@ -1,0 +1,22 @@
+.paygroups-table {
+    text-align: center;
+    overflow-y: auto;
+}
+
+/* For WebKit browsers */
+.paygroups-table::-webkit-scrollbar {
+    width: 2px; /* Adjust the width as needed */
+}
+
+.paygroups-table::-webkit-scrollbar-thumb {
+    background-color: green;
+}
+
+/* For Firefox */
+.paygroups-table *::-webkit-scrollbar {
+    width: 2px; /* Adjust the width as needed */
+}
+
+.paygroups-table *::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 255, 255);
+}

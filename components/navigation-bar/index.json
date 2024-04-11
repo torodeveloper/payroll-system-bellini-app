@@ -1,0 +1,137 @@
+{
+  "type": "custom-component",
+  "name": "navigation-bar",
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "gnpm7Y"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "padding",
+          "value": "20px",
+          "enabled": true
+        },
+        {
+          "property": "background-color",
+          "value": "#3aafa9",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "Navigation",
+          "nodeName": "bln-navigation",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "7fxfuM"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "--bln-navigation-bg-color",
+              "value": "#3AAFA9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-hovered-item-bg-color",
+              "value": "#2e8c87",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-border-color",
+              "value": "#3AAFA9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-text-color",
+              "value": "#fff",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-font-size",
+              "value": "18px",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-hovered-item-text-color",
+              "value": "#17252A",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-active-item-text-color",
+              "value": "#17252A",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-active-item-bg-color",
+              "value": "#3aafa9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-navigation-brand-font-weight",
+              "value": "bold",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "navigation",
+          "expressions": [
+            {
+              "expression": "\"Payroll System\"",
+              "to": "label"
+            },
+            {
+              "expression": "[{\n        label: \"Employees\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"home\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Payroll\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Paygroups\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"paygroups\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Roles\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"roles\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    }\n]",
+              "to": "menuItems"
+            },
+            {
+              "expression": "\"right\"",
+              "to": "alignment"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ],
+  "variables": [],
+  "bindings": [],
+  "modules": [],
+  "externalScripts": [],
+  "externalStylesheets": []
+}
