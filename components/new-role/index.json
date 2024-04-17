@@ -391,16 +391,16 @@
               "id": "text-input",
               "expressions": [
                 {
-                  "expression": "\"Pay Rate\"",
-                  "to": "label"
-                },
-                {
                   "expression": "\"Enter Pay Rate\"",
                   "to": "placeholder"
                 },
                 {
                   "expression": "$ctrl.payRate",
                   "to": "value"
+                },
+                {
+                  "expression": "\"Pay Rate (per hour)\"",
+                  "to": "label"
                 }
               ],
               "formControl": {

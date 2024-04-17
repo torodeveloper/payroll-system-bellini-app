@@ -391,7 +391,7 @@
               "id": "text-input",
               "expressions": [
                 {
-                  "expression": "\"Pay Rate\"",
+                  "expression": "\"Pay Rate (per hour)\"",
                   "to": "label"
                 },
                 {
