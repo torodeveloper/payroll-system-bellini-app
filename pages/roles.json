@@ -139,7 +139,7 @@
           "name": "handleCreate",
           "type": "method",
           "description": "This is the function to create new role title using /POST",
-          "body": "$ctrl.props.isCreating = true;\n\n$ctrl.$modal.open(\"new-role\", {\n    type: \"New Role Title\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, roleTitle, requiredHours, shiftIn, shiftOut, payRate, overtimeMultiplier, payCurrency, payGroupName }) => {\n   if (result !== 'ok') {\n       $ctrl.props.isCreating = false;\n       return;\n   }\n   $ctrl.payrollSystemApi.employee_services_role_CreateRole(\n    {   ngrokSkipBrowserWarning: 'toro' },\n    {\n        roleTitle: roleTitle,\n        requiredHours: requiredHours,\n        shiftIn: shiftIn,\n        shiftOut: shiftOut,\n        payRate: payRate,\n        overtimeMultiplier: overtimeMultiplier,\n        payCurrency: payCurrency,\n        payGroupName: payGroupName    \n    }\n   ).then(({ data }) => {\n       $ctrl.$notificationManager.show(\"Successfully created the new role title\", {\n           delay: 2500,\n           icon: 'check',\n           color: 'success',\n       });\n       if (!$ctrl.rolesArray) {\n           $ctrl.rolesArray = []; \n       }\n       $ctrl.rolesArray.push(data);\n       fetchNewData();\n   }).finally(() => {\n       $ctrl.props.isCreating = false;\n   });\n}).catch(error => {\n    console.error('Error opening new-role modal:', error);\n    console.log(\"Error notification should be shown for modal opening error\");\n    $ctrl.$notificationManager.show('An error occurred while opening the new-role modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n}).finally(() => {\n    $ctrl.props.isCreating = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_role_GetAllRoles({\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(result => {\n        $ctrl.pagination.paginatedRoles = result.data.roles\n    }).catch(error => {\n        console.error('Error fetching new data:', error);\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n\n\n",
+          "body": "$ctrl.props.isCreating = true;\n\n$ctrl.$modal.open(\"new-role\", {\n    type: \"New Role Title\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, roleTitle, requiredHours, shiftIn, shiftOut, payRate, overtimeMultiplier, payCurrency, payGroupName }) => {\n   if (result !== 'ok') {\n       $ctrl.props.isCreating = false;\n       return;\n   }\n   $ctrl.payrollSystemApi.employee_services_role_CreateRole(\n    {   ngrokSkipBrowserWarning: 'toro' },\n    {\n        roleTitle: roleTitle,\n        requiredHours: requiredHours,\n        shiftIn: shiftIn,\n        shiftOut: shiftOut,\n        payRate: payRate,\n        overtimeMultiplier: overtimeMultiplier,\n        payCurrency: payCurrency,\n        payGroupName: payGroupName    \n    }\n   ).then(({ data }) => {\n       $ctrl.$notificationManager.show(\"Successfully created the new role title\", {\n           delay: 2500,\n           icon: 'check',\n           color: 'success',\n       });\n       if (!$ctrl.rolesArray) {\n           $ctrl.rolesArray = []; \n       }\n       $ctrl.rolesArray.push(data);\n       fetchNewData();\n   }).finally(() => {\n       $ctrl.props.isCreating = false;\n   });\n}).catch(error => {\n    console.error('Error opening new-role modal:', error);\n    console.log(\"Error notification should be shown for modal opening error\");\n    $ctrl.$notificationManager.show('An error occurred while opening the new-role modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n}).finally(() => {\n    $ctrl.props.isCreating = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_role_GetAllRoles({\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(result => {\n        $ctrl.pagination.paginatedRoles = result.data.roles\n    }).catch(error => {\n        console.error('Error fetching new data:', error);\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -179,7 +179,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "_2GpVx"
+        }
+      ],
       "classList": [
         "navbar"
       ],
@@ -198,7 +203,12 @@
           "name": "navigation-bar",
           "nodeName": "navigation-bar",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "piRvXX"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -223,7 +233,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "x7xWP6"
+        }
+      ],
       "classList": [
         "header"
       ],
@@ -268,7 +283,12 @@
           "name": "h1",
           "nodeName": "h1",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "_FWt5c"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -305,7 +325,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "tgx5Re"
+            }
+          ],
           "classList": [
             "buttons-container"
           ],
@@ -339,6 +364,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "291ICW"
                 }
               ],
               "classList": [],
@@ -405,6 +434,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "8gF3aU"
                 }
               ],
               "classList": [],
@@ -475,6 +508,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "ovLp4v"
                 }
               ],
               "classList": [],
@@ -552,7 +589,12 @@
       "name": "hr",
       "nodeName": "hr",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "vqxBwp"
+        }
+      ],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -577,7 +619,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "GfKxEw"
+        }
+      ],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -610,7 +657,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "vr8I8G"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -639,6 +691,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "igSiEU"
             }
           ],
           "classList": [],
@@ -728,6 +784,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "0B3mkg"
             }
           ],
           "classList": [],
