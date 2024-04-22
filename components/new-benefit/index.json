@@ -88,7 +88,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "7fZiRe"
+        }
+      ],
       "classList": [
         "modal-body"
       ],
@@ -117,6 +122,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "B8bcHu"
             }
           ],
           "classList": [],
@@ -146,6 +155,10 @@
             {
               "expression": "$ctrl.validateData(newValue)",
               "to": "onValueChange"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValidate"
             }
           ],
           "formControl": {
@@ -160,6 +173,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "eNobNC"
             }
           ],
           "classList": [],
@@ -207,6 +224,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "HB1HZL"
             }
           ],
           "classList": [],
@@ -385,7 +406,7 @@
       "name": "validateData",
       "type": "method",
       "description": "",
-      "body": "if (\n    $ctrl.benefitName && $ctrl.benefitName >= 1 &&\n    typeof $ctrl.employeeDeduction === 'number' &&\n    typeof $ctrl.companyContribution === 'number'  \n) {\n    $ctrl.isIncomplete = false;\n}\n",
+      "body": "if (\n    $ctrl.benefitName &&\n    typeof $ctrl.employeeDeduction === 'number' &&\n    typeof $ctrl.companyContribution === 'number'\n) {\n    $ctrl.isIncomplete = false;\n}\n",
       "invokeOnLoad": false,
       "isAsync": false,
       "returnType": {
