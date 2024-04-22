@@ -1,6 +1,6 @@
 {
   "type": "custom-component",
-  "name": "update-paygroup",
+  "name": "new-benefit",
   "nodeName": null,
   "description": null,
   "children": [
@@ -45,7 +45,7 @@
             {
               "name": "text",
               "nodeName": "text",
-              "textContent": "Update Paygroup",
+              "textContent": "Create New Benefit",
               "evaluate": false
             }
           ],
@@ -104,14 +104,14 @@
       "styles": [
         {
           "property": "min-height",
-          "value": "75px",
+          "value": "100px",
           "enabled": true
         }
       ],
       "children": [
         {
-          "name": "Dropdown",
-          "nodeName": "bln-dropdown",
+          "name": "Text Input",
+          "nodeName": "bln-text-input",
           "elementId": "",
           "attributes": [
             {
@@ -133,19 +133,113 @@
           "children": [],
           "comments": "",
           "type": "core-component",
-          "id": "dropdown",
+          "id": "text-input",
           "expressions": [
             {
-              "expression": "\"Payroll Period\"",
+              "expression": "\"Benefit Name\"",
               "to": "label"
             },
             {
-              "expression": "[{\n        label: \"MONTHLY\",\n        value: \"MONTHLY\"\n    },\n    {\n        label: \"SEMI-MONTHLY\",\n        value: \"SEMI-MONTHLY\"\n    },\n    {\n        label: \"WEEKLY\",\n        value: \"WEEKLY\"\n    },\n    {\n        label: \"BI-WEEKLY\",\n        value: \"BI-WEEKLY\"\n    }\n]",
-              "to": "values"
+              "expression": "$ctrl.benefitName",
+              "to": "value"
             },
             {
-              "expression": "$ctrl.payrollPeriod",
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Text Input",
+          "nodeName": "bln-text-input",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "text-input",
+          "expressions": [
+            {
+              "expression": "\"Employee Deduction\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"number\"",
+              "to": "type"
+            },
+            {
+              "expression": "$ctrl.employeeDeduction",
               "to": "value"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Text Input",
+          "nodeName": "bln-text-input",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "text-input",
+          "expressions": [
+            {
+              "expression": "\"Company Contribution\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"number\"",
+              "to": "type"
+            },
+            {
+              "expression": "$ctrl.companyContribution",
+              "to": "value"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
             }
           ],
           "formControl": {
@@ -238,28 +332,7 @@
             "variable": "",
             "trackByIndex": false
           },
-          "styles": [
-            {
-              "property": "--bln-button-primary-bg-color",
-              "value": "#3AAFA9",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-primary-hovered-bg-color",
-              "value": "#2e8c87",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-primary-active-bg-color",
-              "value": "#297b76",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-padding",
-              "value": "7px 15px",
-              "enabled": true
-            }
-          ],
+          "styles": [],
           "children": [],
           "comments": "",
           "type": "core-component",
@@ -270,12 +343,16 @@
               "to": "type"
             },
             {
-              "expression": "\"Update\"",
+              "expression": "\"Create\"",
               "to": "label"
             },
             {
               "expression": "$ctrl.onOkClick()",
               "to": "onClick"
+            },
+            {
+              "expression": "$ctrl.isIncomplete",
+              "to": "isDisabled"
             }
           ]
         }
@@ -297,6 +374,26 @@
       "description": "This function is called when Cancel button is clicked.",
       "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
       "parameters": []
+    },
+    {
+      "name": "isIncomplete",
+      "type": "property",
+      "description": "",
+      "value": "true"
+    },
+    {
+      "name": "validateData",
+      "type": "method",
+      "description": "",
+      "body": "if (\n    $ctrl.benefitName && $ctrl.benefitName >= 1 &&\n    typeof $ctrl.employeeDeduction === 'number' &&\n    typeof $ctrl.companyContribution === 'number'  \n) {\n    $ctrl.isIncomplete = false;\n}\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "newValue"
+      ]
     }
   ],
   "bindings": [
@@ -323,8 +420,22 @@
       ]
     },
     {
-      "name": "payrollPeriod",
-      "type": "=",
+      "name": "benefitName",
+      "type": "<",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "employeeDeduction",
+      "type": "<",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "companyContribution",
+      "type": "<",
       "description": "",
       "propertyType": "property",
       "default": ""

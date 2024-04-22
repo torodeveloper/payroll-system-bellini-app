@@ -1,5 +1,9 @@
-navigation-bar {
+.bln-navigation {
+    padding: 20px;
+}
 
+.menu-container-wrapper {
+    margin-right: 40px;
 }
 
 .menu-item {
@@ -9,3 +13,4 @@ navigation-bar {
 .menu-label {
     font-size: 15px;
 }
+

@@ -25,7 +25,7 @@
           "name": "handleCreate",
           "type": "method",
           "description": "This is the function to create new paygroups using /POST",
-          "body": "$ctrl.props.isCreating = true;\n$ctrl.$modal.open(\"new-paygroup\", {\n    type: \"New Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, paygroupName, payrollPeriod }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isCreating = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_CreatePayGroup(\n        { ngrokSkipBrowserWarning: 'toro' },\n        { \n            pay_group_name: paygroupName, \n            payroll_period: payrollPeriod \n        }\n    ).then(({ data }) => {\n        // Push the new paygroup data into the array\n        $ctrl.$notificationManager.show(\"Successfully created the new paygroup\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n        if (!$ctrl.paygroupsArray) {\n            $ctrl.paygroupsArray = []; // Initialize if it doesn't exist\n        }\n        $ctrl.paygroupsArray.push(data);\n        // Fetch the new array of data after pushing\n        fetchNewData();\n    }).finally(() => {\n        $ctrl.props.isCreating = false;\n    });\n}).catch(error => {\n    console.error('Error opening new-paygroup modal:', error);\n    // Show error notification\n    console.log(\"Error notification should be shown for modal opening error\");\n    $ctrl.$notificationManager.show('An error occurred while opening the new-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isCreating = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n    $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
+          "body": "$ctrl.props.isCreating = true;\n$ctrl.$modal.open(\"new-paygroup\", {\n    type: \"New Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, paygroupName, payrollPeriod }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isCreating = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_CreatePayGroup(\n        { ngrokSkipBrowserWarning: 'toro' },\n        { \n            pay_group_name: paygroupName, \n            payroll_period: payrollPeriod \n        }\n    ).then(({ data }) => {\n        $ctrl.$notificationManager.show(\"Successfully created the new Paygroup\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n        if (!$ctrl.paygroupsArray) {\n            $ctrl.paygroupsArray = [];\n        }\n        $ctrl.paygroupsArray.push(data);\n        fetchNewData();\n    }).finally(() => {\n        $ctrl.props.isCreating = false;\n    });\n}).catch(error => {\n    console.error('Error opening new-paygroup modal:', error);\n    console.log(\"Error notification should be shown for modal opening error\");\n    $ctrl.$notificationManager.show('An error occurred while opening the new-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isCreating = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n    $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -37,7 +37,7 @@
           "name": "handleUpdate",
           "type": "method",
           "description": "This is the function to edit or update existing paygroup using /PUT",
-          "body": "// Set isUpdating to true before opening the modal\n$ctrl.props.isUpdating = true;\n\n$ctrl.$modal.open(\"update-paygroup\", {\n    type: \"Update Paygroup\",\n    payrollPeriod: $ctrl.selected.selectedPaygroup.payroll_period,\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, payrollPeriod }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isUpdating = false;\n    } else {\n        // Construct the body object with updated payrollPeriod\n        const body = {\n            payrollPeriod: payrollPeriod\n        };\n\n        // Call the API to update the paygroup\n        $ctrl.payrollSystemApi.employee_services_paygroup_UpdatePayGroup(\n            {\n                payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n                ngrokSkipBrowserWarning: 'toro'\n            },\n            body\n        ).then(result => {\n            // Process the result here if needed\n            console.log('Response:', result);\n            $ctrl.$notificationManager.show(\"Paygroup updated successfully\", {\n                delay: 2500,\n                icon: 'check',\n                color: 'success'\n            });\n\n            // Optionally, update the selected paygroup's payroll_period in your UI\n            $ctrl.selected.selectedPaygroup.payroll_period = payrollPeriod;\n        }).catch(error => {\n            // Handle errors here\n            console.error('Error:', error);\n            $ctrl.$notificationManager.show(\"An error occurred while updating the paygroup\", {\n                delay: 3500,\n                icon: 'exclamation-circle',\n                color: 'danger'\n            });\n        }).finally(() => {\n            $ctrl.props.isUpdating = false;\n        });\n    }\n}).catch(error => {\n    // Handle errors opening the modal\n    console.error('Error opening update-paygroup modal:', error);\n    // Show error notification\n    $ctrl.$notificationManager.show('An error occurred while opening the update-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isUpdating = false;\n});",
+          "body": "$ctrl.props.isUpdating = true;\n\n$ctrl.$modal.open(\"update-paygroup\", {\n    type: \"Update Paygroup\",\n    payrollPeriod: $ctrl.selected.selectedPaygroup.payroll_period,\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, payrollPeriod }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isUpdating = false;\n    } else {\n        const body = {\n            payrollPeriod: payrollPeriod\n        };\n        $ctrl.payrollSystemApi.employee_services_paygroup_UpdatePayGroup(\n            {\n                payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n                ngrokSkipBrowserWarning: 'toro'\n            },\n            body\n        ).then(result => {\n            console.log('Response:', result);\n            $ctrl.$notificationManager.show(\"Paygroup updated successfully\", {\n                delay: 2500,\n                icon: 'check',\n                color: 'success'\n            });\n            $ctrl.selected.selectedPaygroup.payroll_period = payrollPeriod;\n        }).catch(error => {\n            console.error('Error:', error);\n            $ctrl.$notificationManager.show(\"An error occurred while updating the paygroup\", {\n                delay: 3500,\n                icon: 'exclamation-circle',\n                color: 'danger'\n            });\n        }).finally(() => {\n            $ctrl.props.isUpdating = false;\n        });\n    }\n}).catch(error => {\n    console.error('Error opening update-paygroup modal:', error);\n    $ctrl.$notificationManager.show('An error occurred while opening the update-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isUpdating = false;\n});",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -49,7 +49,7 @@
           "name": "handleDelete",
           "type": "method",
           "description": "This is the function to delete paygroup using /DELETE",
-          "body": "$ctrl.props.isDeleting = true;\n\n$ctrl.$modal.open(\"delete-paygroup\", {\n    type: \"Delete Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isDeleting = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_DeletePayGroup({\n        payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(() => {\n        // Process the result if needed\n        console.log('Paygroup deleted successfully');\n        $ctrl.$notificationManager.show(\"Paygroup deleted successfully\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n\n        fetchNewData();\n    }).catch(error => {\n        console.error('Error deleting paygroup:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show(\"An error occurred while deleting the selected paygroup\", {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    }).finally(() => {\n        $ctrl.props.isDeleting = false;\n        fetchNewData();\n    });\n}).catch(error => {\n    console.error('Error opening delete-paygroup modal:', error);\n    // Show error notification\n    $ctrl.$notificationManager.show('An error occurred while opening the delete-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isDeleting = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n        ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n     $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
+          "body": "$ctrl.props.isDeleting = true;\n\n$ctrl.$modal.open(\"delete-paygroup\", {\n    type: \"Delete Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isDeleting = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_DeletePayGroup({\n        payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(() => {\n        console.log('Paygroup deleted successfully');\n        $ctrl.$notificationManager.show(\"Paygroup deleted successfully\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n\n        fetchNewData();\n    }).catch(error => {\n        console.error('Error deleting paygroup:', error);\n        $ctrl.$notificationManager.show(\"An error occurred while deleting the selected paygroup\", {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    }).finally(() => {\n        $ctrl.props.isDeleting = false;\n        fetchNewData();\n    });\n}).catch(error => {\n    console.error('Error opening delete-paygroup modal:', error);\n    $ctrl.$notificationManager.show('An error occurred while opening the delete-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isDeleting = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n        ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n     $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -85,6 +85,12 @@
           "type": "property",
           "description": "",
           "value": ""
+        },
+        {
+          "name": "noSelect",
+          "type": "property",
+          "description": "",
+          "value": "true"
         }
       ]
     },
@@ -154,12 +160,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "01hYiJ"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "navbar"
       ],
@@ -178,12 +179,7 @@
           "name": "navigation-bar",
           "nodeName": "navigation-bar",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "C6C-Sv"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -198,7 +194,7 @@
           "children": [],
           "comments": "",
           "type": "custom-component",
-          "id": "660dfc67f871b7b8ec68d766",
+          "id": "6621e58995ff897e7860fe53",
           "expressions": []
         }
       ],
@@ -208,12 +204,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "0RDO7y"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "header"
       ],
@@ -258,12 +249,7 @@
           "name": "h1",
           "nodeName": "h1",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "d87wy1"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -300,12 +286,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "KCi8Oo"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "buttons-container"
           ],
@@ -339,10 +320,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "Sf99Ga"
                 }
               ],
               "classList": [],
@@ -409,10 +386,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "MRtXqu"
                 }
               ],
               "classList": [],
@@ -468,6 +441,10 @@
                 {
                   "expression": "$ctrl.props.isUpdating",
                   "to": "showLoading"
+                },
+                {
+                  "expression": "$ctrl.props.noSelect",
+                  "to": "isDisabled"
                 }
               ]
             },
@@ -479,10 +456,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "-PDc33"
                 }
               ],
               "classList": [],
@@ -538,6 +511,10 @@
                 {
                   "expression": "$ctrl.clickEvents.handleDelete()",
                   "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.props.noSelect",
+                  "to": "isDisabled"
                 }
               ]
             }
@@ -551,12 +528,7 @@
       "name": "hr",
       "nodeName": "hr",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "N3K5Uy"
-        }
-      ],
+      "attributes": [],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -581,12 +553,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "q1-X-m"
-        }
-      ],
+      "attributes": [],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -620,10 +587,6 @@
           "nodeName": "bln-table",
           "elementId": "",
           "attributes": [
-            {
-              "property": "data-id",
-              "value": "-di2bW"
-            },
             {
               "property": "core",
               "value": ""
@@ -702,7 +665,7 @@
               "to": "enableRowSelection"
             },
             {
-              "expression": "$ctrl.selected.selectPaygroup(row)",
+              "expression": "$ctrl.selected.selectPaygroup(row);\n$ctrl.props.noSelect = false;",
               "to": "onSelection"
             },
             {
@@ -719,12 +682,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "P31ziF"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -748,10 +706,6 @@
               "nodeName": "bln-pagination",
               "elementId": "",
               "attributes": [
-                {
-                  "property": "data-id",
-                  "value": "_faFCj"
-                },
                 {
                   "property": "core",
                   "value": ""
@@ -782,7 +736,7 @@
                   "to": "totalPages"
                 },
                 {
-                  "expression": "$ctrl.paginatedPaygroups = $ctrl.paygroupsArray.slice($ctrl.currentPage * $ctrl.pageSize - $ctrl.pageSize, $ctrl.pageSize * $ctrl.currentPage)",
+                  "expression": "$ctrl.paginatedPaygroups = $ctrl.paygroupsArray.slice(currentPage * $ctrl.pageSize - $ctrl.pageSize, currentPage * $ctrl.pageSize);",
                   "to": "onPageChange"
                 }
               ]

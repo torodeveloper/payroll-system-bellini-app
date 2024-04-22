@@ -1,17 +1,14 @@
 {
   "type": "custom-component",
   "name": "new-role",
+  "nodeName": null,
+  "description": null,
   "children": [
     {
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "tACUob"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-header"
       ],
@@ -30,12 +27,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "G54Zc-"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-title"
           ],
@@ -63,12 +55,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "Ugn1Co"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-close"
           ],
@@ -101,12 +88,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "ZeHbRm"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-body"
       ],
@@ -129,10 +111,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "jzv3CO"
             }
           ],
           "classList": [],
@@ -156,12 +134,20 @@
               "to": "label"
             },
             {
-              "expression": "\"Enter  Role Title\"",
+              "expression": "\"Enter value\"",
               "to": "placeholder"
             },
             {
               "expression": "$ctrl.roleTitle",
               "to": "value"
+            },
+            {
+              "expression": "true",
+              "to": "isRequired"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
             }
           ],
           "formControl": {
@@ -172,12 +158,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "m5-l0B"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -204,10 +185,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "NF-NND"
                 }
               ],
               "classList": [],
@@ -231,12 +208,24 @@
                   "to": "label"
                 },
                 {
-                  "expression": "\"Enter Required Hours\"",
+                  "expression": "\"Enter value\"",
                   "to": "placeholder"
                 },
                 {
                   "expression": "$ctrl.requiredHours",
                   "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "false",
+                  "to": "isRequired"
+                },
+                {
+                  "expression": "$ctrl.validateData(newValue)",
+                  "to": "onValueChange"
                 }
               ],
               "formControl": {
@@ -244,14 +233,10 @@
               }
             },
             {
-              "name": "Text Input",
-              "nodeName": "bln-text-input",
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
               "elementId": "",
               "attributes": [
-                {
-                  "property": "data-id",
-                  "value": "joEsgt"
-                },
                 {
                   "property": "core",
                   "value": ""
@@ -271,15 +256,27 @@
               "children": [],
               "comments": "",
               "type": "core-component",
-              "id": "text-input",
+              "id": "date-time-picker",
               "expressions": [
                 {
                   "expression": "\"Shift In\"",
                   "to": "label"
                 },
                 {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "\"12\"",
+                  "to": "timeFormat"
+                },
+                {
                   "expression": "$ctrl.shiftIn",
-                  "to": "value"
+                  "to": "timeValue"
+                },
+                {
+                  "expression": "false",
+                  "to": "isRequired"
                 }
               ],
               "formControl": {
@@ -287,17 +284,13 @@
               }
             },
             {
-              "name": "Text Input",
-              "nodeName": "bln-text-input",
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
               "elementId": "",
               "attributes": [
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "IsieUb"
                 }
               ],
               "classList": [],
@@ -314,15 +307,23 @@
               "children": [],
               "comments": "",
               "type": "core-component",
-              "id": "text-input",
+              "id": "date-time-picker",
               "expressions": [
                 {
                   "expression": "\"Shift Out\"",
                   "to": "label"
                 },
                 {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
                   "expression": "$ctrl.shiftOut",
-                  "to": "value"
+                  "to": "timeValue"
+                },
+                {
+                  "expression": "false",
+                  "to": "isRequired"
                 }
               ],
               "formControl": {
@@ -336,12 +337,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "mWmwoa"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -368,10 +364,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "I0GU0k"
                 }
               ],
               "classList": [],
@@ -391,7 +383,7 @@
               "id": "text-input",
               "expressions": [
                 {
-                  "expression": "\"Enter Pay Rate\"",
+                  "expression": "\"Enter value\"",
                   "to": "placeholder"
                 },
                 {
@@ -401,6 +393,18 @@
                 {
                   "expression": "\"Pay Rate (per hour)\"",
                   "to": "label"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "true",
+                  "to": "isRequired"
+                },
+                {
+                  "expression": "$ctrl.validateData(newValue)",
+                  "to": "onValueChange"
                 }
               ],
               "formControl": {
@@ -415,10 +419,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "hVg1--"
                 }
               ],
               "classList": [],
@@ -444,6 +444,18 @@
                 {
                   "expression": "$ctrl.overtimeMultiplier",
                   "to": "value"
+                },
+                {
+                  "expression": "true",
+                  "to": "isRequired"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "$ctrl.validateData(newValue)",
+                  "to": "onValueChange"
                 }
               ],
               "formControl": {
@@ -458,10 +470,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "AlyDMV"
                 }
               ],
               "classList": [],
@@ -487,6 +495,14 @@
                 {
                   "expression": "$ctrl.payCurrency",
                   "to": "value"
+                },
+                {
+                  "expression": "true",
+                  "to": "isRequired"
+                },
+                {
+                  "expression": "$ctrl.validateData(newValue)",
+                  "to": "onValueChange"
                 }
               ],
               "formControl": {
@@ -501,10 +517,6 @@
           "nodeName": "bln-dropdown",
           "elementId": "",
           "attributes": [
-            {
-              "property": "data-id",
-              "value": "tTl2q4"
-            },
             {
               "property": "core",
               "value": ""
@@ -537,6 +549,14 @@
             {
               "expression": "$ctrl.fetchedPaygroupName",
               "to": "values"
+            },
+            {
+              "expression": "false",
+              "to": "isRequired"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
             }
           ],
           "formControl": {
@@ -550,12 +570,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "rDuZYb"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-footer"
       ],
@@ -578,10 +593,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "BNzy4z"
             }
           ],
           "classList": [
@@ -624,10 +635,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "xPEOnD"
             }
           ],
           "classList": [
@@ -662,6 +669,21 @@
               "property": "--bln-button-padding",
               "value": "7px 25px",
               "enabled": true
+            },
+            {
+              "property": "--bln-button-default-bg-color",
+              "value": "#3aafa9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-default-hovered-bg-color",
+              "value": "#2e8c87",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-default-active-bg-color",
+              "value": "#297b76",
+              "enabled": true
             }
           ],
           "children": [],
@@ -674,12 +696,16 @@
               "to": "type"
             },
             {
-              "expression": "'OK'",
+              "expression": "\"Create\"",
               "to": "label"
             },
             {
               "expression": "$ctrl.onOkClick()",
               "to": "onClick"
+            },
+            {
+              "expression": "$ctrl.isIncomplete",
+              "to": "isDisabled"
             }
           ]
         }
@@ -689,10 +715,15 @@
   ],
   "variables": [
     {
-      "type": "method",
       "name": "onOkClick",
+      "type": "method",
       "description": "This function is called when OK button is clicked.",
       "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
       "parameters": []
     },
     {
@@ -715,10 +746,15 @@
       "parameters": []
     },
     {
-      "name": "getPaygroupName",
+      "name": "payrollSystemApi",
+      "type": "open-api",
+      "id": "660ce923f871b7b8ec68d74e"
+    },
+    {
+      "name": "handleFetchPayload",
       "type": "method",
       "description": "",
-      "body": "$ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n}).then(result => {\n    $ctrl.fetchedPaygroupName = result.data\n})",
+      "body": "// Function to log input values\nfunction logInputValues() {\n    console.log('roleTitle:', $ctrl.roleTitle);\n    console.log('requiredHours:', $ctrl.requiredHours);\n    console.log('shiftIn:', $ctrl.shiftIn);\n    console.log('shiftOut:', $ctrl.shiftOut);\n    console.log('payRate:', $ctrl.payRate);\n    console.log('overtimeMultiplier:', $ctrl.overtimeMultiplier);\n    console.log('payCurrency:', $ctrl.payCurrency);\n    console.log('payGroupName:', $ctrl.payGroupName);\n\n    // Check if all required fields are filled\n    if (\n        $ctrl.roleTitle !== undefined && $ctrl.roleTitle !== null &&\n        $ctrl.requiredHours !== undefined && $ctrl.requiredHours !== null &&\n        $ctrl.shiftIn !== undefined && $ctrl.shiftIn !== null &&\n        $ctrl.shiftOut !== undefined && $ctrl.shiftOut !== null &&\n        $ctrl.payRate !== undefined && $ctrl.payRate !== null &&\n        $ctrl.overtimeMultiplier !== undefined && $ctrl.overtimeMultiplier !== null &&\n        $ctrl.payCurrency !== undefined && $ctrl.payCurrency !== null &&\n        $ctrl.payGroupName !== undefined && $ctrl.payGroupName !== null\n    ) {\n        $ctrl.isCreating = false;\n    }\n}\n\n// Attach event listeners to input fields to trigger logInputValues() on input change\n// Example assuming $ctrl.roleTitle, $ctrl.requiredHours, etc. are bound to input fields\ndocument.getElementById('$ctrl.roleTitle').addEventListener('input', logInputValues);\ndocument.getElementById('$ctrl.requiredHours').addEventListener('input', logInputValues);\ndocument.getElementById('shiftInInput').addEventListener('input', logInputValues);\ndocument.getElementById('shiftOutInput').addEventListener('input', logInputValues);\ndocument.getElementById('payRateInput').addEventListener('input', logInputValues);\ndocument.getElementById('overtimeMultiplierInput').addEventListener('input', logInputValues);\ndocument.getElementById('payCurrencyInput').addEventListener('input', logInputValues);\ndocument.getElementById('payGroupNameInput').addEventListener('input', logInputValues);\n",
       "invokeOnLoad": false,
       "isAsync": false,
       "returnType": {
@@ -727,9 +763,24 @@
       "parameters": []
     },
     {
-      "name": "payrollSystemApi",
-      "type": "open-api",
-      "id": "660ce923f871b7b8ec68d74e"
+      "name": "validateData",
+      "type": "method",
+      "description": "",
+      "body": "if (\n    typeof $ctrl.overtimeMultiplier === 'number' &&\n    $ctrl.payCurrency && $ctrl.payCurrency.length >= 1 &&\n    $ctrl.payGroupName && $ctrl.payGroupName.length >= 1 &&\n    typeof $ctrl.payRate === 'number' && \n    typeof $ctrl.requiredHours === 'number' && \n    $ctrl.roleTitle && $ctrl.roleTitle.length >= 1\n    // isValidTime($ctrl.shiftIn) &&\n    // isValidTime($ctrl.shiftOut)\n) {\n    $ctrl.isIncomplete = false;\n}\n\n// function isValidTime(time) {\n//     // Regular expression to match the time format (HH:MM AM/PM)\n//     var timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/;\n//     return timeRegex.test(time);\n// }\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "newValue"
+      ]
+    },
+    {
+      "name": "isIncomplete",
+      "type": "property",
+      "description": "",
+      "value": "true"
     }
   ],
   "bindings": [
@@ -820,6 +871,9 @@
     }
   ],
   "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
   "externalScripts": [],
   "externalStylesheets": []
 }

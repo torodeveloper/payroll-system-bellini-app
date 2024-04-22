@@ -1,17 +1,14 @@
 {
   "type": "custom-component",
   "name": "delete-role",
+  "nodeName": null,
+  "description": null,
   "children": [
     {
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "rngj4O"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-header"
       ],
@@ -30,12 +27,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "J3u9GC"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-title"
           ],
@@ -63,12 +55,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "_H7xpP"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-close"
           ],
@@ -101,12 +88,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "fT1q8v"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-body"
       ],
@@ -131,12 +113,7 @@
           "name": "p",
           "nodeName": "p",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "dnN1SB"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -147,7 +124,13 @@
             "variable": "",
             "trackByIndex": false
           },
-          "styles": [],
+          "styles": [
+            {
+              "property": "text-align",
+              "value": "center",
+              "enabled": true
+            }
+          ],
           "children": [
             {
               "name": "text",
@@ -165,12 +148,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "nWNaWt"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-footer"
       ],
@@ -193,10 +171,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "5zRrji"
             }
           ],
           "classList": [
@@ -239,10 +213,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "3WyYrk"
             }
           ],
           "classList": [
@@ -338,6 +308,9 @@
     }
   ],
   "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
   "externalScripts": [],
   "externalStylesheets": []
 }

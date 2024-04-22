@@ -1,17 +1,14 @@
 {
   "type": "custom-component",
   "name": "update-role",
+  "nodeName": null,
+  "description": null,
   "children": [
     {
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "N3pE6w"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-header"
       ],
@@ -30,12 +27,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "JQhTMl"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-title"
           ],
@@ -63,12 +55,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "moQ_zl"
-            }
-          ],
+          "attributes": [],
           "classList": [
             "modal-close"
           ],
@@ -101,12 +88,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "_6T3Fv"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-body"
       ],
@@ -129,10 +111,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "9kyfz8"
             }
           ],
           "classList": [],
@@ -156,7 +134,7 @@
               "to": "label"
             },
             {
-              "expression": "\"Enter  Role Title\"",
+              "expression": "\"Enter value\"",
               "to": "placeholder"
             },
             {
@@ -172,12 +150,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "p9sNpT"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -204,10 +177,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "i5aJH7"
                 }
               ],
               "classList": [],
@@ -231,12 +200,16 @@
                   "to": "label"
                 },
                 {
-                  "expression": "\"Enter Required Hours\"",
+                  "expression": "\"Enter value\"",
                   "to": "placeholder"
                 },
                 {
                   "expression": "$ctrl.requiredHours",
                   "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
                 }
               ],
               "formControl": {
@@ -244,17 +217,13 @@
               }
             },
             {
-              "name": "Text Input",
-              "nodeName": "bln-text-input",
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
               "elementId": "",
               "attributes": [
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "dBEaNE"
                 }
               ],
               "classList": [],
@@ -271,15 +240,19 @@
               "children": [],
               "comments": "",
               "type": "core-component",
-              "id": "text-input",
+              "id": "date-time-picker",
               "expressions": [
                 {
                   "expression": "\"Shift In\"",
                   "to": "label"
                 },
                 {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
                   "expression": "$ctrl.shiftIn",
-                  "to": "value"
+                  "to": "timeValue"
                 }
               ],
               "formControl": {
@@ -287,17 +260,13 @@
               }
             },
             {
-              "name": "Text Input",
-              "nodeName": "bln-text-input",
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
               "elementId": "",
               "attributes": [
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "8ZrZ1Y"
                 }
               ],
               "classList": [],
@@ -314,15 +283,19 @@
               "children": [],
               "comments": "",
               "type": "core-component",
-              "id": "text-input",
+              "id": "date-time-picker",
               "expressions": [
                 {
                   "expression": "\"Shift Out\"",
                   "to": "label"
                 },
                 {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
                   "expression": "$ctrl.shiftOut",
-                  "to": "value"
+                  "to": "timeValue"
                 }
               ],
               "formControl": {
@@ -336,12 +309,7 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [
-            {
-              "property": "data-id",
-              "value": "AGAvkK"
-            }
-          ],
+          "attributes": [],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -368,10 +336,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "OGO-9O"
                 }
               ],
               "classList": [],
@@ -395,12 +359,16 @@
                   "to": "label"
                 },
                 {
-                  "expression": "\"Enter Pay Rate\"",
+                  "expression": "\"Enter value\"",
                   "to": "placeholder"
                 },
                 {
                   "expression": "$ctrl.payRate",
                   "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
                 }
               ],
               "formControl": {
@@ -415,10 +383,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "_hoth6"
                 }
               ],
               "classList": [],
@@ -444,6 +408,10 @@
                 {
                   "expression": "$ctrl.overtimeMultiplier",
                   "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
                 }
               ],
               "formControl": {
@@ -458,10 +426,6 @@
                 {
                   "property": "core",
                   "value": ""
-                },
-                {
-                  "property": "data-id",
-                  "value": "-ioqJL"
                 }
               ],
               "classList": [],
@@ -504,10 +468,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "mZR0mg"
             }
           ],
           "classList": [],
@@ -550,12 +510,7 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [
-        {
-          "property": "data-id",
-          "value": "5iUEuk"
-        }
-      ],
+      "attributes": [],
       "classList": [
         "modal-footer"
       ],
@@ -578,10 +533,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "HMnQtX"
             }
           ],
           "classList": [
@@ -624,10 +575,6 @@
             {
               "property": "core",
               "value": ""
-            },
-            {
-              "property": "data-id",
-              "value": "g4VK9k"
             }
           ],
           "classList": [
@@ -674,7 +621,7 @@
               "to": "type"
             },
             {
-              "expression": "'OK'",
+              "expression": "\"Update\"",
               "to": "label"
             },
             {
@@ -820,6 +767,9 @@
     }
   ],
   "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
   "externalScripts": [],
   "externalStylesheets": []
 }
