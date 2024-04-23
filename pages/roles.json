@@ -87,7 +87,7 @@
           "name": "selectRole",
           "type": "method",
           "description": "",
-          "body": "$ctrl.selected.selectedRole = row",
+          "body": "if ($ctrl.selected.selectedRole = row) {\n    $ctrl.props.noSelect = false;\n} else if ($ctrl.selected.selectedRole === undefined) {\n    $ctrl.props.noSelect = true;\n    }\n",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -763,7 +763,7 @@
               "to": "enableRowSelection"
             },
             {
-              "expression": "$ctrl.selected.selectRole(row);\n$ctrl.props.noSelect = false;",
+              "expression": "$ctrl.selected.selectRole(row);",
               "to": "onSelection"
             },
             {

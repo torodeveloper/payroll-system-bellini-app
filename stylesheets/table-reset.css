@@ -1,0 +1,14 @@
+.ui-grid-viewport, 
+.ng-isolate-scope {
+    overflow-y: auto;
+}
+
+.ui-grid-viewport::-webkit-scrollbar, 
+.ng-isolate-scope::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ui-grid-viewport::-webkit-scrollbar-thumb, 
+.ng-isolate-scope::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+}

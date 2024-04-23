@@ -68,7 +68,7 @@
           "name": "handleDelete",
           "type": "method",
           "description": "This is the function to delete benefit using /DELETE",
-          "body": "$ctrl.props.isDeleting = true;\n\n$ctrl.$modal.open(\"delete-paygroup\", {\n    type: \"Delete Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isDeleting = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_DeletePayGroup({\n        payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(() => {\n        // Process the result if needed\n        console.log('Paygroup deleted successfully');\n        $ctrl.$notificationManager.show(\"Paygroup deleted successfully\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n\n        fetchNewData();\n    }).catch(error => {\n        console.error('Error deleting paygroup:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show(\"An error occurred while deleting the selected paygroup\", {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    }).finally(() => {\n        $ctrl.props.isDeleting = false;\n        fetchNewData();\n    });\n}).catch(error => {\n    console.error('Error opening delete-paygroup modal:', error);\n    // Show error notification\n    $ctrl.$notificationManager.show('An error occurred while opening the delete-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isDeleting = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n        ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n     $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
+          "body": "$ctrl.props.isDeleting = true;\n\n$ctrl.$modal.open(\"delete-benefit\", {\n    type: \"Delete Benefit\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isDeleting = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_payslipItems_DeleteBenefit({\n        ngrokSkipBrowserWarning: 'toro',\n        benefitName: $ctrl.selected.selectedBenefit.benefitName\n    }).then(() => {\n        console.log('Paygroup deleted successfully');\n        $ctrl.$notificationManager.show(\"Benefit deleted successfully\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n        fetchNewData();\n    }).catch(error => {\n        console.error('Error deleting benefit:', error);\n        $ctrl.$notificationManager.show(\"An error occurred while deleting the selected benefit\", {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    }).finally(() => {\n        $ctrl.props.isDeleting = false;\n        fetchNewData();\n    });\n}).catch(error => {\n    console.error('Error opening delete-benefit modal:', error);\n    $ctrl.$notificationManager.show('An error occurred while opening the delete-benefit modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isDeleting = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_payslipItems_GetAllBenefits({\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(result => {\n        $ctrl.pagination.paginatedBenefits = result.data.benefits\n    }).catch(error => {\n        console.error('Error fetching new data:', error);\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -124,7 +124,7 @@
           "name": "selectBenefit",
           "type": "method",
           "description": "",
-          "body": "$ctrl.selected.selectedBenefit = row",
+          "body": "if ($ctrl.selected.selectedBenefit = row) {\n    $ctrl.props.noSelect = false;\n} else if ($ctrl.selected.selectedBenefit === undefined) {\n    $ctrl.props.noSelect = true;\n    }\n",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -681,7 +681,7 @@
               "to": "enableRowSelection"
             },
             {
-              "expression": "$ctrl.selected.selectBenefit(row);\n$ctrl.props.noSelect = false;",
+              "expression": "$ctrl.selected.selectBenefit(row);",
               "to": "onSelection"
             },
             {

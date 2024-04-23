@@ -113,7 +113,7 @@
           "name": "selectPaygroup",
           "type": "method",
           "description": "",
-          "body": "$ctrl.selected.selectedPaygroup = row",
+          "body": "if ($ctrl.selected.selectedPaygroup = row) {\n    $ctrl.props.noSelect = false;\n} else if ($ctrl.selected.selectedPaygroup === undefined) {\n    $ctrl.props.noSelect = true;\n    }\n",
           "invokeOnLoad": false,
           "isAsync": false,
           "returnType": {
@@ -160,7 +160,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "N5hkaW"
+        }
+      ],
       "classList": [
         "navbar"
       ],
@@ -179,7 +184,12 @@
           "name": "navigation-bar",
           "nodeName": "navigation-bar",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "HfnlHk"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -204,7 +214,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "HthNrP"
+        }
+      ],
       "classList": [
         "header"
       ],
@@ -249,7 +264,12 @@
           "name": "h1",
           "nodeName": "h1",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "0xlzuk"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -286,7 +306,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "T51ji2"
+            }
+          ],
           "classList": [
             "buttons-container"
           ],
@@ -320,6 +345,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "NZK0w_"
                 }
               ],
               "classList": [],
@@ -386,6 +415,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "OipofR"
                 }
               ],
               "classList": [],
@@ -456,6 +489,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "aO8kM3"
                 }
               ],
               "classList": [],
@@ -528,7 +565,12 @@
       "name": "hr",
       "nodeName": "hr",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "LKFN_r"
+        }
+      ],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -553,7 +595,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "gFrmQg"
+        }
+      ],
       "classList": [],
       "conditionalClasses": [],
       "contentType": "text",
@@ -590,6 +637,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "KvqcaW"
             }
           ],
           "classList": [
@@ -665,7 +716,7 @@
               "to": "enableRowSelection"
             },
             {
-              "expression": "$ctrl.selected.selectPaygroup(row);\n$ctrl.props.noSelect = false;",
+              "expression": "$ctrl.selected.selectPaygroup(row);",
               "to": "onSelection"
             },
             {
@@ -682,7 +733,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "iJpaYq"
+            }
+          ],
           "classList": [],
           "conditionalClasses": [],
           "contentType": "text",
@@ -709,6 +765,10 @@
                 {
                   "property": "core",
                   "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "2BFX9-"
                 }
               ],
               "classList": [],
