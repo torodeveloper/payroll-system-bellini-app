@@ -1,0 +1,686 @@
+{
+  "name": "benefits",
+  "type": "page",
+  "url": "/benefits",
+  "params": {},
+  "variables": [
+    {
+      "name": "payrollSystemApi",
+      "type": "open-api",
+      "id": "660ce923f871b7b8ec68d74e"
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "$notificationManager",
+      "type": "service"
+    },
+    {
+      "name": "benefitsArray",
+      "type": "array",
+      "description": "",
+      "children": []
+    },
+    {
+      "name": "getAllBenefits",
+      "type": "method",
+      "description": "",
+      "body": "// $ctrl.payrollSystemApi.employee_services_payslipItems_GetAllBenefits({\n//     ngrokSkipBrowserWarning: 'toro'\n// }).then(result => {\n//     $ctrl.benefitsArray = result.data.benefits\n// })\n\n// Function to fetch benefits data for a specific page\nfunction fetchBenefitsForPage(pageNumber) {\n    const startIndex = (pageNumber - 1) * $ctrl.pagination.pageSize;\n    const endIndex = startIndex + $ctrl.pagination.pageSize;\n    $ctrl.payrollSystemApi.employee_services_payslipItems_GetAllBenefits({\n    ngrokSkipBrowserWarning: 'toro'\n    }).then(result => {\n        $ctrl.benefitsArray = result.data.benefits;\n        if (result.data.benefits && Array.isArray(result.data.benefits)) {\n            $ctrl.pagination.totalPages = Math.ceil(result.data.benefits.length / $ctrl.pagination.pageSize);\n            $ctrl.pagination.paginatedBenefits = result.data.benefits.slice(startIndex, endIndex);\n        } else {\n            $ctrl.pagination.totalPages\n            $ctrl.pagination.paginatedBenefits = [];\n        }\n    }).catch(error => {\n        console.error('Error fetching paginated benefits data:', error);\n    });\n}\n\n// Fetch roles data for the initial page\nfetchBenefitsForPage($ctrl.pagination.currentPage);",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "clickEvents",
+      "type": "object",
+      "description": "Handles all the clickEvents (CRUD operations) of the Paygroups Page",
+      "properties": [
+        {
+          "name": "handleCreate",
+          "type": "method",
+          "description": "This is the function to create new paygroups using /POST",
+          "body": "$ctrl.props.isCreating = true;\n$ctrl.$modal.open(\"new-benefit\", {\n    type: \"New Benefit\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, benefitName, employeeDeduction, companyContribution }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isCreating = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_payslipItems_CreateBenefit(\n        { ngrokSkipBrowserWarning: 'toro' },\n       { \n            benefitName: benefitName, \n            employeeDeduction: employeeDeduction,\n            companyContribution: companyContribution\n        }\n  ).then(({ data }) => {\n        // Push the new paygroup data into the array\n        $ctrl.$notificationManager.show(\"Successfully created the new benefit\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n        if (!$ctrl.benefitsArray) {\n            $ctrl.benefitsArray = []; // Initialize if it doesn't exist\n        }\n        $ctrl.benefitsArray.push(data);\n        // Fetch the new array of data after pushing\n        fetchNewData();\n    }).finally(() => {\n        $ctrl.props.isCreating = false;\n    });\n}).catch(error => {\n    console.error('Error opening new-paygroup modal:', error);\n    // Show error notification\n    console.log(\"Error notification should be shown for modal opening error\");\n    $ctrl.$notificationManager.show('An error occurred while opening the new-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isCreating = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_payslipItems_GetAllBenefits({\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(result => {\n        $ctrl.pagination.paginatedBenefits = result.data.benefits\n    }).catch(error => {\n        console.error('Error fetching new data:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}",
+          "invokeOnLoad": false,
+          "isAsync": false,
+          "returnType": {
+            "name": "any"
+          },
+          "parameters": []
+        },
+        {
+          "name": "handleUpdate",
+          "type": "method",
+          "description": "This is the function to edit or update existing paygroup using /PUT",
+          "body": "// Set isUpdating to true before opening the modal\n$ctrl.props.isUpdating = true;\n\n$ctrl.$modal.open(\"update-paygroup\", {\n    type: \"Update Paygroup\",\n    payrollPeriod: $ctrl.selected.selectedPaygroup.payroll_period,\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result, payrollPeriod }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isUpdating = false;\n    } else {\n        // Construct the body object with updated payrollPeriod\n        const body = {\n            payrollPeriod: payrollPeriod\n        };\n\n        // Call the API to update the paygroup\n        $ctrl.payrollSystemApi.employee_services_paygroup_UpdatePayGroup(\n            {\n                payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n                ngrokSkipBrowserWarning: 'toro'\n            },\n            body\n        ).then(result => {\n            // Process the result here if needed\n            console.log('Response:', result);\n            $ctrl.$notificationManager.show(\"Paygroup updated successfully\", {\n                delay: 2500,\n                icon: 'check',\n                color: 'success'\n            });\n\n            // Optionally, update the selected paygroup's payroll_period in your UI\n            $ctrl.selected.selectedPaygroup.payroll_period = payrollPeriod;\n        }).catch(error => {\n            // Handle errors here\n            console.error('Error:', error);\n            $ctrl.$notificationManager.show(\"An error occurred while updating the paygroup\", {\n                delay: 3500,\n                icon: 'exclamation-circle',\n                color: 'danger'\n            });\n        }).finally(() => {\n            $ctrl.props.isUpdating = false;\n        });\n    }\n}).catch(error => {\n    // Handle errors opening the modal\n    console.error('Error opening update-paygroup modal:', error);\n    // Show error notification\n    $ctrl.$notificationManager.show('An error occurred while opening the update-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isUpdating = false;\n});",
+          "invokeOnLoad": false,
+          "isAsync": false,
+          "returnType": {
+            "name": "any"
+          },
+          "parameters": []
+        },
+        {
+          "name": "handleDelete",
+          "type": "method",
+          "description": "This is the function to delete paygroup using /DELETE",
+          "body": "$ctrl.props.isDeleting = true;\n\n$ctrl.$modal.open(\"delete-paygroup\", {\n    type: \"Delete Paygroup\"\n}, {\n    style: { animation: \"400ms sample-animation ease\" }\n}).then(({ result }) => {\n    if (result !== 'ok') {\n        $ctrl.props.isDeleting = false;\n        return;\n    }\n    $ctrl.payrollSystemApi.employee_services_paygroup_DeletePayGroup({\n        payGroupName: $ctrl.selected.selectedPaygroup.pay_group_name,\n        ngrokSkipBrowserWarning: 'toro'\n    }).then(() => {\n        // Process the result if needed\n        console.log('Paygroup deleted successfully');\n        $ctrl.$notificationManager.show(\"Paygroup deleted successfully\", {\n            delay: 2500,\n            icon: 'check',\n            color: 'success',\n        });\n\n        fetchNewData();\n    }).catch(error => {\n        console.error('Error deleting paygroup:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show(\"An error occurred while deleting the selected paygroup\", {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    }).finally(() => {\n        $ctrl.props.isDeleting = false;\n        fetchNewData();\n    });\n}).catch(error => {\n    console.error('Error opening delete-paygroup modal:', error);\n    // Show error notification\n    $ctrl.$notificationManager.show('An error occurred while opening the delete-paygroup modal', {\n        delay: 3500,\n        icon: 'exclamation-circle',\n        color: 'danger'\n    });\n    $ctrl.props.isDeleting = false;\n});\n\nfunction fetchNewData() {\n    $ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n        ngrokSkipBrowserWarning: 'toro'\n   }).then(result => {\n     $ctrl.paginatedPaygroups = result.data.payGroup\n   }).catch(error => {\n        console.error('Error fetching new data:', error);\n        // Show error notification\n        $ctrl.$notificationManager.show('An error occurred while fetching new data', {\n            delay: 3500,\n            icon: 'exclamation-circle',\n            color: 'danger'\n        });\n    });\n}\n",
+          "invokeOnLoad": false,
+          "isAsync": false,
+          "returnType": {
+            "name": "any"
+          },
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "name": "props",
+      "type": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "isCreating",
+          "type": "property",
+          "description": "",
+          "value": ""
+        },
+        {
+          "name": "isUpdating",
+          "type": "property",
+          "description": "",
+          "value": ""
+        },
+        {
+          "name": "isDeleting",
+          "type": "property",
+          "description": "",
+          "value": ""
+        },
+        {
+          "name": "noSelect",
+          "type": "property",
+          "description": "",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "selected",
+      "type": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "selectedBenefit",
+          "type": "property",
+          "description": "",
+          "value": ""
+        },
+        {
+          "name": "selectBenefit",
+          "type": "method",
+          "description": "",
+          "body": "$ctrl.selected.selectedBenefit = row",
+          "invokeOnLoad": false,
+          "isAsync": false,
+          "returnType": {
+            "name": "any"
+          },
+          "parameters": [
+            "row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "description": "",
+      "properties": [
+        {
+          "name": "currentPage",
+          "type": "property",
+          "description": "",
+          "value": "1"
+        },
+        {
+          "name": "totalPages",
+          "type": "property",
+          "description": "",
+          "value": "0"
+        },
+        {
+          "name": "pageSize",
+          "type": "property",
+          "description": "",
+          "value": "10"
+        },
+        {
+          "name": "paginatedBenefits",
+          "type": "property",
+          "description": "",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "navbar"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "navigation-bar",
+          "nodeName": "navigation-bar",
+          "elementId": "",
+          "attributes": [],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "custom-component",
+          "id": "6621e58995ff897e7860fe53",
+          "expressions": []
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        },
+        {
+          "property": "margin",
+          "value": "0 auto",
+          "enabled": true
+        },
+        {
+          "property": "color",
+          "value": "#17252A",
+          "enabled": true
+        },
+        {
+          "property": "padding-top",
+          "value": "50px",
+          "enabled": true
+        },
+        {
+          "property": "display",
+          "value": "flex",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "h1",
+          "nodeName": "h1",
+          "elementId": "",
+          "attributes": [],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin",
+              "value": "0",
+              "enabled": true
+            },
+            {
+              "property": "width",
+              "value": "70%",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Benefits",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "buttons-container"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "width",
+              "value": "30%",
+              "enabled": true
+            },
+            {
+              "property": "text-align",
+              "value": "right",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-button-default-bg-color",
+                  "value": "#3aafa9",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-hovered-bg-color",
+                  "value": "#2e8c87",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-active-bg-color",
+                  "value": "#297b76",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-text-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-padding",
+                  "value": "7px 25px",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "\"New\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.props.isCreating",
+                  "to": "showLoading"
+                },
+                {
+                  "expression": "$ctrl.clickEvents.handleCreate()",
+                  "to": "onClick"
+                }
+              ]
+            },
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-button-default-bg-color",
+                  "value": "#3aafa9",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-hovered-bg-color",
+                  "value": "#2e8c87",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-active-bg-color",
+                  "value": "#297b76",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-text-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-padding",
+                  "value": "7px 18px",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "\"Update\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.clickEvents.handleUpdate()",
+                  "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.props.isUpdating",
+                  "to": "showLoading"
+                },
+                {
+                  "expression": "$ctrl.props.noSelect",
+                  "to": "isDisabled"
+                }
+              ]
+            },
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-button-default-bg-color",
+                  "value": "#3aafa9",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-hovered-bg-color",
+                  "value": "#2e8c87",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-active-bg-color",
+                  "value": "#297b76",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-text-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-padding",
+                  "value": "7px 20px",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "\"Delete\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.props.isDeleting",
+                  "to": "showLoading"
+                },
+                {
+                  "expression": "$ctrl.clickEvents.handleDelete()",
+                  "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.props.noSelect",
+                  "to": "isDisabled"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "hr",
+      "nodeName": "hr",
+      "elementId": "",
+      "attributes": [],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        }
+      ],
+      "children": [],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        },
+        {
+          "property": "margin",
+          "value": "0 auto",
+          "enabled": true
+        },
+        {
+          "property": "padding-top",
+          "value": "30px",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "Table",
+          "nodeName": "bln-table",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "table",
+          "expressions": [
+            {
+              "expression": "$ctrl.pagination.paginatedBenefits",
+              "to": "data"
+            },
+            {
+              "expression": "true",
+              "to": "enableRowSelection"
+            },
+            {
+              "expression": "$ctrl.selected.selectBenefit(row);\n$ctrl.props.noSelect = false;",
+              "to": "onSelection"
+            },
+            {
+              "expression": "[{\n        name: \"Benefit\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        valueKey: 'benefitName',\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Employee Deduction\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        valueKey: 'employeeDeduction',\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Company Contribution\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        valueKey: 'companyContribution',\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+              "to": "columns"
+            }
+          ]
+        },
+        {
+          "name": "Pagination",
+          "nodeName": "bln-pagination",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "pagination",
+          "expressions": [
+            {
+              "expression": "$ctrl.pagination.currentPage",
+              "to": "currentPage"
+            },
+            {
+              "expression": "$ctrl.pagination.totalPages",
+              "to": "totalPages"
+            },
+            {
+              "expression": "$ctrl.pagination.paginatedBenefits = $ctrl.benefitsArray.slice(currentPage * $ctrl.pagination.pageSize - $ctrl.pagination.pageSize, currentPage * $ctrl.pagination.pageSize);",
+              "to": "onPageChange"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}
