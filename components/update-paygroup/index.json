@@ -1,0 +1,339 @@
+{
+  "type": "custom-component",
+  "name": "update-paygroup",
+  "nodeName": null,
+  "description": null,
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Update Paygroup",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "min-height",
+          "value": "75px",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Payroll Period\"",
+              "to": "label"
+            },
+            {
+              "expression": "[{\n        label: \"MONTHLY\",\n        value: \"MONTHLY\"\n    },\n    {\n        label: \"SEMI-MONTHLY\",\n        value: \"SEMI-MONTHLY\"\n    },\n    {\n        label: \"WEEKLY\",\n        value: \"WEEKLY\"\n    },\n    {\n        label: \"BI-WEEKLY\",\n        value: \"BI-WEEKLY\"\n    }\n]",
+              "to": "values"
+            },
+            {
+              "expression": "$ctrl.payrollPeriod",
+              "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-footer"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "--bln-button-primary-bg-color",
+              "value": "#3AAFA9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-hovered-bg-color",
+              "value": "#2e8c87",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-active-bg-color",
+              "value": "#297b76",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-padding",
+              "value": "7px 15px",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "\"Update\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "payrollPeriod",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
+  "externalScripts": [],
+  "externalStylesheets": []
+}

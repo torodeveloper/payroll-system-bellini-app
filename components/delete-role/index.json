@@ -1,0 +1,316 @@
+{
+  "type": "custom-component",
+  "name": "delete-role",
+  "nodeName": null,
+  "description": null,
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Delete Role",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "min-height",
+          "value": "50px",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "text-align",
+              "value": "center",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Are you sure you want to delete this role?",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-footer"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "--bln-button-primary-bg-color",
+              "value": "#a11212",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-hovered-bg-color",
+              "value": "#810e0e",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-active-bg-color",
+              "value": "#710d0d",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "\"Delete\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    }
+  ],
+  "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
+  "externalScripts": [],
+  "externalStylesheets": []
+}

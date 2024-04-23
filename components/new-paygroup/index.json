@@ -1,0 +1,429 @@
+{
+  "type": "custom-component",
+  "name": "new-paygroup",
+  "nodeName": "new-paygroup",
+  "description": null,
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Create New Paygroup",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "min-height",
+          "value": "100px",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "Text Input",
+          "nodeName": "bln-text-input",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "text-input",
+          "expressions": [
+            {
+              "expression": "\"Paygroup Name\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Enter Paygroup Name\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.paygroupName",
+              "to": "value"
+            },
+            {
+              "expression": "false",
+              "to": "isRequired"
+            },
+            {
+              "expression": "1",
+              "to": "minLength"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Payroll Period\"",
+              "to": "label"
+            },
+            {
+              "expression": "[{\n        label: \"MONTHLY\",\n        value: \"MONTHLY\"\n    },\n    {\n        label: \"SEMI-MONTHLY\",\n        value: \"SEMI-MONTHLY\"\n    },\n    {\n        label: \"WEEKLY\",\n        value: \"WEEKLY\"\n    },\n    {\n        label: \"BI-WEEKLY\",\n        value: \"BI-WEEKLY\"\n    }\n]",
+              "to": "values"
+            },
+            {
+              "expression": "$ctrl.payrollPeriod",
+              "to": "value"
+            },
+            {
+              "expression": "$ctrl.validateData(newValue)",
+              "to": "onValueChange"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-footer"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "--bln-button-primary-bg-color",
+              "value": "#3AAFA9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-hovered-bg-color",
+              "value": "#2e8c87",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-active-bg-color",
+              "value": "#297b76",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-padding",
+              "value": "7px 25px",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "\"Create\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            },
+            {
+              "expression": "$ctrl.isIncomplete",
+              "to": "isDisabled"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "name": "isIncomplete",
+      "type": "property",
+      "description": "",
+      "value": "true"
+    },
+    {
+      "name": "validateData",
+      "type": "method",
+      "description": "This function is used to validate data if the data need is incomplete.",
+      "body": "if ($ctrl.paygroupName && $ctrl.paygroupName.length >= 1 && $ctrl.payrollPeriod && $ctrl.payrollPeriod.length >= 1) {\n    $ctrl.isIncomplete = false;\n}\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "newValue"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "paygroupName",
+      "type": "<",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "payrollPeriod",
+      "type": "<",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
+  "externalScripts": [],
+  "externalStylesheets": []
+}

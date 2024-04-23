@@ -1,0 +1,775 @@
+{
+  "type": "custom-component",
+  "name": "update-role",
+  "nodeName": null,
+  "description": null,
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Update Role Title",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Text Input",
+          "nodeName": "bln-text-input",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "text-input",
+          "expressions": [
+            {
+              "expression": "\"Role Title\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Enter value\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.roleTitle",
+              "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Required Hours\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "\"Enter value\"",
+                  "to": "placeholder"
+                },
+                {
+                  "expression": "$ctrl.requiredHours",
+                  "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "date-time-picker",
+              "expressions": [
+                {
+                  "expression": "\"Shift In\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "$ctrl.shiftIn",
+                  "to": "timeValue"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Date Time Picker",
+              "nodeName": "bln-date-time-picker",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "date-time-picker",
+              "expressions": [
+                {
+                  "expression": "\"Shift Out\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "\"time\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "$ctrl.shiftOut",
+                  "to": "timeValue"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Pay Rate (per hour)\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "\"Enter value\"",
+                  "to": "placeholder"
+                },
+                {
+                  "expression": "$ctrl.payRate",
+                  "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Overtime Multiplier\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.overtimeMultiplier",
+                  "to": "value"
+                },
+                {
+                  "expression": "\"number\"",
+                  "to": "type"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Pay Currency\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.payCurrency",
+                  "to": "value"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Paygroup Name\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.payGroupName",
+              "to": "value"
+            },
+            {
+              "expression": "$ctrl.fetchedPaygroupName",
+              "to": "values"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [],
+      "classList": [
+        "modal-footer"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "--bln-button-padding",
+              "value": "7px 25px",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-bg-color",
+              "value": "#3AAFA9",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-hovered-bg-color",
+              "value": "#2e8c87",
+              "enabled": true
+            },
+            {
+              "property": "--bln-button-primary-active-bg-color",
+              "value": "#297b76",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "\"Update\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "name": "handleFetchPaygroupName",
+      "type": "method",
+      "description": "",
+      "body": "$ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n}).then(result => {\n    // Assuming result.data.payGroup is an array\n    $ctrl.fetchedPaygroupName = result.data.payGroup.map(p => ({\n        label: p.pay_group_name,\n        value: p.pay_group_name,\n    }));\n}).catch(error => {\n    // Handle errors\n    console.error('Error fetching or mapping pay groups:', error);\n    // Optionally, set $ctrl.fetchedPaygroupName to an empty array or handle the error in another way\n    $ctrl.fetchedPaygroupName = [];\n});\n",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "getPaygroupName",
+      "type": "method",
+      "description": "",
+      "body": "$ctrl.payrollSystemApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n}).then(result => {\n    $ctrl.fetchedPaygroupName = result.data\n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "payrollSystemApi",
+      "type": "open-api",
+      "id": "660ce923f871b7b8ec68d74e"
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "fetchedPaygroupName",
+      "type": "=",
+      "description": "",
+      "propertyType": "array",
+      "default": ""
+    },
+    {
+      "name": "overtimeMultiplier",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "payCurrency",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "payGroupName",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "payRate",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "requiredHours",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "roleTitle",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "shiftIn",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "shiftOut",
+      "type": "=",
+      "description": "",
+      "propertyType": "property",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
+  "externalScripts": [],
+  "externalStylesheets": []
+}
