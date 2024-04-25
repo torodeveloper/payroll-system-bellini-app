@@ -1,0 +1,924 @@
+{
+  "name": "payslips",
+  "type": "page",
+  "url": "/payslips/:id",
+  "params": {
+    "id": ""
+  },
+  "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dfe51f871b7b8ec68d76b"
+    },
+    {
+      "name": "getEmployeePayslips",
+      "type": "method",
+      "description": "function to cal all the Employee Payslips from the API",
+      "body": "$ctrl.payrollApi.payroll_reporting_services_GetPayrollById({\n    payrollId: $ctrl.$stateParams.id,\n    ngrokSkipBrowserWarning: 'na'\n}).then(result => {\n    $ctrl.employeePayslips = result.data.payroll.payslips\n    $ctrl.cardData[0] = result.data.employerCost.employeeGrossPay\n    $ctrl.cardData[1] = result.data.employerCost.employerTaxes\n    $ctrl.cardData[2] = result.data.employerCost.employerBenefitContribution\n    $ctrl.cardData[3] = result.data.employerCost.total\n    if ($ctrl.employeePayslips.length < 10) {\n        $ctrl.showPagination = false\n    }\n\n    let startIndex = $ctrl.page === 1 ? 0 : ($ctrl.page - 1) * 10;\n    $ctrl.employeePayslips = $ctrl.employeePayslips.slice(startIndex);\n\n    $ctrl.showSpinner = false\n})\n\n \n\n ",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "employeePayslips",
+      "type": "array",
+      "description": "Contains the data from the getEmployeePayslips",
+      "children": []
+    },
+    {
+      "name": "$stateParams",
+      "type": "service"
+    },
+    {
+      "name": "cardData",
+      "type": "array",
+      "description": "Array to contain the data such as the Gross PAy, Taxes, Benefit Contribution, and Total",
+      "children": []
+    },
+    {
+      "name": "showSpinner",
+      "type": "property",
+      "description": "Shows and hides the spinner while the table data loads",
+      "value": "true"
+    },
+    {
+      "name": "openPayslipModal",
+      "type": "method",
+      "description": "",
+      "body": "$ctrl.$modal.open(\"payslip-modal\", {groupId , id}).then( (result) =>{\n    console.log(id)\n//     if (result.result === \"ok\") {\n//     $ctrl.payrollApi.payroll_calculation_services_CalculatePayroll(\n//         {\n//             ngrokSkipBrowserWarning: 'n/a'\n//         },\n//         {\n//             \"payGroupName\": result.chosenPaygGoup,\n//             \"runType\": result.chosenRunType,\n//             \"startDate\": result.startDate,\n//             \"endDate\": result.endDate,\n//             \"checkDate\": result.checkDate\n//         }\n//         ).then(result => {\n//             $ctrl.runPayrollResult = result.data\n//             console.log(result.data.fetchPayGroup)\n//         })\n//     }\n}\n)\n\n\n\n\n\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "groupId",
+        "id"
+      ]
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "handlePayslipSelection",
+      "type": "method",
+      "description": "Handles the opening of a payslip view modal when row is selected",
+      "body": "$ctrl.payrollApi.payroll_reporting_services_GetPayrollById({\n     payrollId: $ctrl.$stateParams.id\n}).then(payroll => {\nconsole.log(payroll)\n     const payslip = {\n          ...row,\n          ...payroll.data.payroll,\n          hoursWorked: row.totalHoursWorked,\n          deductions: row.totalDeduction,\n          compensations: row.totalCompensation\n     }\n\n     $ctrl.$modal.open(\"run-payslips\", {payslip})\n})\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "row"
+      ]
+    },
+    {
+      "name": "showPagination",
+      "type": "property",
+      "description": "",
+      "value": "true"
+    },
+    {
+      "name": "page",
+      "type": "property",
+      "description": "",
+      "value": "1"
+    }
+  ],
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "W4WU0E"
+        }
+      ],
+      "classList": [
+        "app-container"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "navigation-bar",
+          "nodeName": "navigation-bar",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "-rKKwk"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "custom-component",
+          "id": "6629d3e395ff897e78610030",
+          "expressions": []
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "CjyQwA"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "width",
+              "value": "90%",
+              "enabled": true
+            },
+            {
+              "property": "margin",
+              "value": "0 auto",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "BIaAVY"
+                }
+              ],
+              "classList": [
+                "eHeader"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "margin-top",
+                  "value": "20px",
+                  "enabled": true
+                },
+                {
+                  "property": "height",
+                  "value": "5%",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "v9C5mJ"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "padding",
+                      "value": "0",
+                      "enabled": true
+                    },
+                    {
+                      "property": "margin",
+                      "value": "0",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "50px",
+                      "enabled": true
+                    },
+                    {
+                      "property": "display",
+                      "value": "flex",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [
+                    {
+                      "name": "p",
+                      "nodeName": "p",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "6LQW1f"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [
+                        {
+                          "property": "font-weight",
+                          "value": "bold",
+                          "enabled": true
+                        },
+                        {
+                          "property": "color",
+                          "value": "#2B7A78",
+                          "enabled": true
+                        },
+                        {
+                          "property": "font-size",
+                          "value": "20px",
+                          "enabled": true
+                        }
+                      ],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Payslips",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "hr",
+                  "nodeName": "hr",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "rC84_f"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "T_R8cN"
+                }
+              ],
+              "classList": [
+                "data-container"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "wY9cO9"
+                    }
+                  ],
+                  "classList": [
+                    "data-card"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "2asvGN"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Gross pay",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    },
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "splNNM"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "$ctrl.cardData[0]",
+                          "evaluate": true
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "ghYfixrb"
+                    }
+                  ],
+                  "classList": [
+                    "data-card"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "o_esZ8em"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Taxes",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    },
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "14JPEqS2"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "$ctrl.cardData[1]",
+                          "evaluate": true
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "uv5XWo80"
+                    }
+                  ],
+                  "classList": [
+                    "data-card"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "K1e4JC_7"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Benefit Contribution",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    },
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "lGfh_yQ_"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "$ctrl.cardData[2]",
+                          "evaluate": true
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "sNpMBg8e"
+                    }
+                  ],
+                  "classList": [
+                    "data-card"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "hnVprfsR"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Total",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    },
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "oy8CCz_m"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "$ctrl.cardData[3]",
+                          "evaluate": true
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "o40qsl"
+                }
+              ],
+              "classList": [
+                "table-container"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "margin",
+                  "value": "20px",
+                  "enabled": true
+                },
+                {
+                  "property": "padding-bottom",
+                  "value": "50px",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "Table",
+                  "nodeName": "bln-table",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "s7sY30Cu"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "true",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "--bln-table-header-bg-color",
+                      "value": "#DEF2F1",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-secondary-bg-color",
+                      "value": "#ffffff",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-bg-color",
+                      "value": "#ffffff",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-hovered-bg-color",
+                      "value": "#cccccc",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "table",
+                  "expressions": [
+                    {
+                      "expression": "[{\n        name: \"Id\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        valueKey: 'id',\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"First name\",\n        valueKey: 'firstName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Last name\",\n        valueKey: 'lastName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Role title\",\n        valueKey: 'roleTitle',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Total hours worked\",\n        valueKey: 'totalHoursWorked',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Gross pay\",\n        valueKey: 'grossPay',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Net pay\",\n        valueKey: 'netPay',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                      "to": "columns"
+                    },
+                    {
+                      "expression": "$ctrl.employeePayslips",
+                      "to": "data"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "resizableColumns"
+                    },
+                    {
+                      "expression": "false",
+                      "to": "enableCellSelection"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "enableRowSelection"
+                    },
+                    {
+                      "expression": "$ctrl.handlePayslipSelection(row)",
+                      "to": "onSelection"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "enablePagination"
+                    },
+                    {
+                      "expression": "10",
+                      "to": "pageSize"
+                    },
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
+                    }
+                  ]
+                },
+                {
+                  "name": "Pagination",
+                  "nodeName": "bln-pagination",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "ymORfm"
+                    },
+                    {
+                      "property": "core",
+                      "value": ""
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "$ctrl.showPagination",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "pagination",
+                  "expressions": [
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
+                    },
+                    {
+                      "expression": "$ctrl.getEmployeePayslips()",
+                      "to": "onPageChange"
+                    }
+                  ]
+                },
+                {
+                  "name": "Spinner",
+                  "nodeName": "bln-spinner",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "PqLVTR"
+                    },
+                    {
+                      "property": "core",
+                      "value": ""
+                    }
+                  ],
+                  "classList": [
+                    "spinner"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "$ctrl.showSpinner",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "spinner",
+                  "expressions": []
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}

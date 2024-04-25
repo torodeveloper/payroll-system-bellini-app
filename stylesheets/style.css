@@ -1,0 +1,63 @@
+.data-container {
+    display: flex;
+    width: 100%;
+    justify-content:space-between;
+}
+
+.data-card {
+    background-color: #DEF2F1;
+    margin: 1rem;
+    padding: .5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}   
+
+.table-container {
+    position: relative;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+table {
+    height: 100%;
+}
+
+.eHeader div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.payslip-container {
+    display: flex;
+}
+
+.payslip-container ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.eHeader div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.eHeader div span {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-content {
+    display: flex;
+    flex-direction: column;
+}

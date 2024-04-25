@@ -1,0 +1,568 @@
+{
+  "type": "custom-component",
+  "name": "run-payroll",
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "J6LFQY"
+        }
+      ],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "O3y0Nc"
+            }
+          ],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "Run payroll\n",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "WPeHh9"
+            }
+          ],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "Bce2yp"
+        }
+      ],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "tE-sbK"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Paygroup\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select paygroup\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.fetchPayGroup",
+              "to": "values"
+            },
+            {
+              "expression": "$ctrl.chosenPaygGoup",
+              "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "E6tr3rPb"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Select run type\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "\"Run type\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.fetchRunType",
+              "to": "values"
+            },
+            {
+              "expression": "$ctrl.chosenRunType",
+              "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "tSAXKy"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"Start\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select start date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.startDate",
+              "to": "dateValue"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "-Y5R0X89"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"End\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select end date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.endDate",
+              "to": "dateValue"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "pBI5k_DR"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"Check date\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select check date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.checkDate",
+              "to": "dateValue"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "classList": [
+        "modal-footer"
+      ],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "'OK'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dfe51f871b7b8ec68d76b"
+    },
+    {
+      "name": "handleFetchRunPayroll",
+      "type": "method",
+      "description": "Runs the post method handleFetchRunPayroll after the values are defined",
+      "body": "$ctrl.payrollApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n}).then(result => {\n    // Assuming result.data.payGroup is an array\n    $ctrl.fetchRunType = result.data\n    $ctrl.fetchPayGroup = result.data.payGroup.map(p => ({\n        label: p.pay_group_name,\n        value: p.pay_group_name,\n    }));\n\n    $ctrl.fetchRunType= [\n    {label: 'REGULAR', value:'REGULAR'},\n    {label: 'OFF-CYCLE', value:'NONE-REGULAR'},\n    {label: 'CORRECTION', value: 'CORRECTION',},\n    ]\n}).catch(error => {\n    // Handle errors\n    console.error('Error fetching or mapping pay groups:', error);\n    // Optionally, set $ctrl.fetchedPaygroupName to an empty array or handle the error in another way\n   $ctrl.fetchPayGroup = [];\n});\n\n ",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "fetchRunType",
+      "type": "=",
+      "description": "Contains the fetchRunType",
+      "propertyType": "array",
+      "default": ""
+    },
+    {
+      "name": "startDate",
+      "type": "=",
+      "description": "Contains the startDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "endDate",
+      "type": "=",
+      "description": "Contains the endDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "checkDate",
+      "type": "=",
+      "description": "Contains the selected checkDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "fetchPayGroup",
+      "type": "=",
+      "description": "Contains the fetchPayGroup",
+      "propertyType": "array",
+      "default": ""
+    },
+    {
+      "name": "chosenPaygGoup",
+      "type": "=",
+      "description": "Contains the chosenPayGroup",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "chosenRunType",
+      "type": "=",
+      "description": "Contains the runType",
+      "propertyType": "property",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "externalScripts": [],
+  "externalStylesheets": []
+}
