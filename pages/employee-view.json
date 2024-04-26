@@ -1,0 +1,2540 @@
+{
+  "name": "employee-view",
+  "type": "page",
+  "url": "/employee-view/:employeeId",
+  "params": {
+    "employeeId": "0"
+  },
+  "variables": [
+    {
+      "name": "currentTab",
+      "type": "property",
+      "description": "Contains the current tab of the page (e.g. timesheet, payslips, etc.)",
+      "value": "\"details\""
+    },
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dff8ef871b7b8ec68d76e"
+    },
+    {
+      "name": "timesheet",
+      "type": "property",
+      "description": "Contains the timesheet of the current employee",
+      "value": ""
+    },
+    {
+      "name": "payslips",
+      "type": "property",
+      "description": "Contains the payslips of the current employee",
+      "value": ""
+    },
+    {
+      "name": "benefits",
+      "type": "property",
+      "description": "Contains the benefits of the current employee",
+      "value": ""
+    },
+    {
+      "name": "deductions",
+      "type": "property",
+      "description": "Contains the deductions of the current employee",
+      "value": ""
+    },
+    {
+      "name": "earnings",
+      "type": "property",
+      "description": "Contains the earnings of the current employee",
+      "value": ""
+    },
+    {
+      "name": "isLoading",
+      "type": "property",
+      "description": "Contains the boolean value for loading",
+      "value": ""
+    },
+    {
+      "name": "employee",
+      "type": "property",
+      "description": "Contains the current employee data",
+      "value": ""
+    },
+    {
+      "name": "roles",
+      "type": "property",
+      "description": "Contains the list of roles",
+      "value": ""
+    },
+    {
+      "name": "selectedAssignments",
+      "type": "property",
+      "description": "Contains the array of selected benefits, earnings, or deductions.",
+      "value": ""
+    },
+    {
+      "name": "getEmployee",
+      "type": "method",
+      "description": "Handles retrieving the selected employee",
+      "body": "if ($ctrl.$stateParams.employeeId == 0 || $ctrl.$stateParams.employeeId === \":employeeId\") {\n    $ctrl.$state.go('employees');\n    return;\n}\n\n$ctrl.payrollApi.employee_services_employee_GetEmployeeDetails({\n    employeeId: $ctrl.$stateParams.employeeId ,\n}).then(result => {\n    $ctrl.employee = result.data.employeeDetails\n}).catch(err =>{\n    $ctrl.$notificationManager.show(`Error retreiving employee details`, {color: 'danger'})\n})\n",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "getTimesheet",
+      "type": "method",
+      "description": "Handles retrieving the timesheet of the selected employee",
+      "body": "$ctrl.payrollApi.attendance_services_GetEmployeeAttendance({\n    employeeId:  $ctrl.$stateParams.employeeId,\n}).then(result => {\n    $ctrl.timesheet = result.data.employee.attendance\n}).catch(err => {\n    $ctrl.$notificationManager.show(`Error retreiving timesheets`, {color: 'danger'})\n})\n\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "getPayslips",
+      "type": "method",
+      "description": "Handles retrieving the payslips of the curreny employee",
+      "body": "$ctrl.payrollApi.payroll_reporting_services_GetEmployeePayslips({\n    employeeId:  $ctrl.$stateParams.employeeId,\n}).then(result => {\n    $ctrl.payslips = result.data.employee.payslips\n}).catch(err => {\n    $ctrl.$notificationManager.show(`Error retreiving payslips`, {color: 'danger'})\n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "getAssignments",
+      "type": "method",
+      "description": "Handles retrieving the benefits, earnings, and deductons of the current employee",
+      "body": "if ($ctrl.$stateParams.employeeId == 0 || $ctrl.$stateParams.employeeId === \":employeeId\") {\n    $ctrl.$state.go('employees');\n    return;\n}\n\n$ctrl.payrollApi.employee_services_employee_GetEmployeePayslipItemAssignments({\n    employeeId:  $ctrl.$stateParams.employeeId,\n}).then(result => {\n   $ctrl.deductions = result.data.employee.employeeDeductions\n   $ctrl.earnings = result.data.employee.employeeEarnings\n   $ctrl.benefits = result.data.employee.employeeBenefits\n}).catch(err => {\n    $ctrl.$notificationManager.show(`Error retreiving deductions, earnings, and benefits`, {color: 'danger'})\n})",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleEdit",
+      "type": "method",
+      "description": "Handles retrieivng list of roles, opening up modal, and sending the update to the API",
+      "body": "$ctrl.isLoading = true\n$ctrl.payrollApi.employee_services_role_GetAllRoles().then(result => {\n    const roles = result.data.roles.map(role => ({label: role.roleTitle, value: role.roleTitle}))\n\n    const currentData = {\n        firstName : $ctrl.employee.firstName, \n        lastName : $ctrl.employee.lastName, \n        role : $ctrl.employee.roleTitle,\n        roles \n        }\n\n    $ctrl.$modal.open('update-employee', currentData).then((result) => {\n        if(result.result === 'ok') {\n            $ctrl.payrollApi.employee_services_employee_UpdateEmployee(\n                {\n                    employeeId: $ctrl.$stateParams.employeeId\n                },\n                {\n                    firstName: result.firstName, \n                    lastName: result.lastName, \n                    roleTitle: result.role\n                }\n                \n            ).then(result => {\n                $ctrl.employee = {...$ctrl.employee, ...result.data.updatedEmployee}\n                $ctrl.$notificationManager.show('Successfulyy updated employee', {color: \"success\"})\n            })\n            .catch(err => $ctrl.$notificationManager.show('An error occured updating employee', {color: \"danger\"}))\n            .finally(()=> $ctrl.isLoading = false)\n        } else {\n            $ctrl.isLoading = false\n        }\n    })\n})\n\n\n\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "$stateParams",
+      "type": "service"
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "handleDelete",
+      "type": "method",
+      "description": "Handles the click of delete button",
+      "body": "const obj = $ctrl.currentTab === 'details' ? 'employee':  $ctrl.currentTab.substring(0, $ctrl.currentTab.length - 1);\n$ctrl.isLoading = true\n\n$ctrl.$modal.open('delete-employee', {obj}).then(result=> {\n    if (result.result === \"ok\"){\n     \n     if ($ctrl.currentTab === 'details'){\n          $ctrl.payrollApi.employee_services_employee_DeleteEmployee({\n               employeeId: $ctrl.$stateParams.employeeId\n          }).then(()=>{\n               $ctrl.$state.go('employees')\n               $ctrl.$notificationManager.show('Successfulyy deleted employee', {color: \"success\"})\n          }).catch(err => {\n               $ctrl.$notificationManager.show('An error occured deleting employee', {color: \"danger\"})\n          }).finally(()=> $ctrl.isLoading = false)\n\n     } else {\n          let deleteAssignments;\n          \n          if ($ctrl.currentTab === 'benefits') {\n              deleteAssignments =  $ctrl.selectedAssignments.map((benefit) => ({benefitName: benefit.benefitName}))\n          } else  if ($ctrl.currentTab === 'earnings') {\n              deleteAssignments =  $ctrl.selectedAssignments.map((earning) => ({earningType: earning.earningType}))\n          } else  if ($ctrl.currentTab === 'deductions') {\n              deleteAssignments =  $ctrl.selectedAssignments.map((deduction) => ({deductionName: deduction.deductionName}))\n          }\n\n          $ctrl.payrollApi.employee_services_employee_UnassignEmployeePayslipItems(\n               {\n                    employeeId: $ctrl.$stateParams.employeeId\n               },\n               {\n                    [$ctrl.currentTab]: deleteAssignments,\n               }\n          ).then(result => {\n               $ctrl.getAssignments()\n               $ctrl.$notificationManager.show('Successfuly deleted assignment', {color: \"success\"})\n          }).catch(err => {\n               $ctrl.$notificationManager.show('An error occured deleting assignment', {color: \"danger\"})\n          }).finally(()=> $ctrl.isLoading = false)\n     }\n    }\n}).finally(()=> $ctrl.isLoading = false)",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "$state",
+      "type": "service"
+    },
+    {
+      "name": "$notificationManager",
+      "type": "service"
+    },
+    {
+      "name": "handleDropDownChange",
+      "type": "method",
+      "description": "Handles the change of dropdown for benefits, deductions, and earnings",
+      "body": "$ctrl.currentTab = tab\n$ctrl.selectedAssignments = undefined",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "tab"
+      ]
+    },
+    {
+      "name": "handleNewAssignment",
+      "type": "method",
+      "description": "Handles the creation of assignment",
+      "body": "const getDropdownValue = async (assignmentType) => {\n    try {\n        let res;\n\n        if (assignmentType === \"benefit\") {\n            res = await $ctrl.payrollApi.employee_services_payslipItems_GetAllBenefits();\n            return res.data.benefits.map(benefit => ({label: benefit.benefitName, value: benefit.benefitName}));\n\n        } else if (assignmentType === \"earning\") {\n            res = await $ctrl.payrollApi.employee_services_payslipItems_GetAllEarnings();\n            return res.data.earnings.map(earning => ({label: earning.earningType, value: earning.earningType}));\n        \n        } else if (assignmentType === \"deduction\") {\n            res = await $ctrl.payrollApi.employee_services_payslipItems_GetAllDeductions();\n            return res.data.deductions.map(deduction => ({label: deduction.deductionName, value: deduction.deductionName}));\n        }\n   \n    } catch(err) {\n        $ctrl.$notificationManager.show(`Error retrieving ${assignmentType}`, {color: 'danger'});\n    }\n}\n\nconst submitNewAssignment = async (assignmentType, newAssingment, body) => {\n    try {\n         if (assignmentType === \"benefit\") {\n            await $ctrl.payrollApi.employee_services_payslipItems_AssignBenefitToEmployees(\n                {\n                    benefitName: newAssingment\n                },\n                body\n            )\n\n        } else if (assignmentType === \"earning\") {\n            await $ctrl.payrollApi.employee_services_payslipItems_AssignEarningToEmployees(\n                {\n                    earningType: newAssingment\n                },\n                body\n            )\n\n        } else if (assignmentType === \"deduction\") {\n            await $ctrl.payrollApi.employee_services_payslipItems_AssignDeductionToEmployees(\n                {\n                    deductionName: newAssingment\n                },\n                body\n            )\n        } \n\n        $ctrl.getAssignments()\n        $ctrl.$notificationManager.show(`Successfully added ${assignmentType}`, {color: 'success'})\n\n    } catch (err) {\n        $ctrl.$notificationManager.show(`Error adding ${assignmentType}`, {color: 'danger'})\n    }\n}\n\n$ctrl.isLoading = true\n\n// removes the last character\nconst assignmentType = $ctrl.currentTab.substring(0, $ctrl.currentTab.length - 1)\nconst body = {\"employees\": [ {fullName: $ctrl.employee.firstName + \" \" + $ctrl.employee.lastName }] }\n\nconst dropdownValues = await getDropdownValue(assignmentType)\n\n$ctrl.$modal.open(\"new-assignment\", {assignmentType, dropdownValues}).then(async (res)=> {\n    if (res.result == 'ok') {\n        await submitNewAssignment(assignmentType, res.selectedValue, body)\n        $ctrl.isLoading = false\n    } \n    $ctrl.isLoading = false\n})\n\n",
+      "invokeOnLoad": false,
+      "isAsync": true,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handlePayslipSelection",
+      "type": "method",
+      "description": "Handles the opening of a payslip view modal when row is selected",
+      "body": "$ctrl.$modal.open(\"payslip-view\", {payslip: {...row}})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "row"
+      ]
+    }
+  ],
+  "children": [
+    {
+      "name": "navigation-bar",
+      "nodeName": "navigation-bar",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "KF1xPL"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [],
+      "comments": "",
+      "type": "custom-component",
+      "id": "660dfebcf871b7b8ec68d76c",
+      "expressions": []
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "DBOFqi"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        },
+        {
+          "property": "padding-bottom",
+          "value": "150px",
+          "enabled": true
+        },
+        {
+          "property": "margin",
+          "value": "0 auto",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "q_ZaiY"
+            }
+          ],
+          "classList": [
+            "header"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin-top",
+              "value": "20px",
+              "enabled": true
+            },
+            {
+              "property": "height",
+              "value": "5%",
+              "enabled": true
+            },
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            },
+            {
+              "property": "justify-content",
+              "value": "space-between;",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "h1",
+              "nodeName": "h1",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "r8Iikw"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {
+                "click": "$ctrl.currentTab = \"details\""
+              },
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "font-weight",
+                  "value": "bold",
+                  "enabled": true
+                },
+                {
+                  "property": "color",
+                  "value": "#2B7A78",
+                  "enabled": true
+                },
+                {
+                  "property": "font-size",
+                  "value": "20px",
+                  "enabled": true
+                },
+                {
+                  "property": "cursor",
+                  "value": "pointer",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "text",
+                  "nodeName": "text",
+                  "textContent": "$ctrl.employee ? \"Employees\" +\" - \" + $ctrl.$stateParams.employeeId + \" - \" + $ctrl.employee.firstName +\" \"+ $ctrl.employee.lastName: \"\"",
+                  "evaluate": true
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "JmVvWr"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "display",
+                  "value": "flex",
+                  "enabled": true
+                },
+                {
+                  "property": "align-items",
+                  "value": "center;",
+                  "enabled": true
+                },
+                {
+                  "property": "column-gap",
+                  "value": "15px;",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "XmL7UP"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "width",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-text-color",
+                      "value": "#fff",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "\"Timesheet\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.currentTab = \"timesheet\";\n$ctrl.getTimesheet()",
+                      "to": "onClick"
+                    }
+                  ]
+                },
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "Lu54aA"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "width",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-text-color",
+                      "value": "#fff",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "\"Payslips\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.currentTab = \"payslips\";\n$ctrl.getPayslips();",
+                      "to": "onClick"
+                    }
+                  ]
+                },
+                {
+                  "name": "Dropdown Menu",
+                  "nodeName": "bln-dropdown-menu",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "X_vpcW"
+                    },
+                    {
+                      "property": "core",
+                      "value": ""
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "dropdown-menu",
+                  "expressions": [
+                    {
+                      "expression": "[{\n        label: \"Benefits\",\n        onClick: \"function\",\n        function: () => $ctrl.handleDropDownChange('benefits')\n    },\n    {\n        label: \"Earnings\",\n        onClick: \"function\",\n        function: () => $ctrl.handleDropDownChange('earnings')\n    },\n    {\n        label: \"Deductions\",\n        onClick: \"function\",\n        function: () => $ctrl.handleDropDownChange('deductions')\n    }\n]",
+                      "to": "menuItems"
+                    },
+                    {
+                      "expression": "\"More\"",
+                      "to": "label"
+                    }
+                  ]
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "hr",
+          "nodeName": "hr",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "MSXsKD"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin-bottom",
+              "value": "50px",
+              "enabled": true
+            }
+          ],
+          "children": [],
+          "comments": ""
+        },
+        {
+          "name": "h3",
+          "nodeName": "h3",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "XjMaV-"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "$ctrl.currentTab.charAt(0).toUpperCase() + $ctrl.currentTab.substring(1)",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "xvIduU"
+            }
+          ],
+          "classList": [
+            "details"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"details\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin",
+              "value": "0 auto",
+              "enabled": true
+            },
+            {
+              "property": "padding",
+              "value": "20px",
+              "enabled": true
+            },
+            {
+              "property": "border",
+              "value": "1px solid #ababab",
+              "enabled": true
+            },
+            {
+              "property": "display",
+              "value": "grid",
+              "enabled": true
+            },
+            {
+              "property": "gap",
+              "value": "15px",
+              "enabled": true
+            },
+            {
+              "property": "grid-template-columns",
+              "value": "repeat(2, 1fr)",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "PbPasW"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "5n3tFV"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "First Name",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "avKztg"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.firstName",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "aqfhAZ"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "4N3yTN"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Last Name",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "D9DunN"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.lastName",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "M1n9CXtY"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "eHKQ_wNR"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Role",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "XWuc5Phc"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.roleTitle",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "ngvAGFGj"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "iwwZRhm2"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Shift Out",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "0EJguX_Q"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.shiftOut",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "g2zVQvDY"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "AGaNAmU1"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Pay rate",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "6Z8-J-y0"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.payRate",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "2k8YOR_7"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "3ua95gAE"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Overtime Multiplier",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "SaAIvCeC"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.overtimeMultiplier",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "enm7rfqy"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "yF1VGAy5"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Paygroup",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "BTSL983T"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.payGroupName",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "WrFWag-u"
+                }
+              ],
+              "classList": [
+                "data-group"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [
+                {
+                  "name": "h4",
+                  "nodeName": "h4",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "dZ8xK97x"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "Currency",
+                      "evaluate": false
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "p",
+                  "nodeName": "p",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "MSVIMW1A"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [
+                    {
+                      "name": "text",
+                      "nodeName": "text",
+                      "textContent": "$ctrl.employee.payCurrency",
+                      "evaluate": true
+                    }
+                  ],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "eeeILu"
+            }
+          ],
+          "classList": [
+            "timesheet"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"timesheet\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "d7Kv64"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.timesheet",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "$ctrl.handleOnSelection(row, columnName, value)",
+                  "to": "onSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"Date\",\n        valueKey: 'timesheet.date',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Time in\",\n        valueKey: 'timesheet.timeIn',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Time out\",\n        valueKey: 'timesheet.timeOut',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Regular hours\",\n        valueKey: 'timesheet.regularHours',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Hours late\",\n        valueKey: 'timesheet.hoursLate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Undertime\",\n        valueKey: 'timesheet.undertimeHours',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Overtime\",\n        valueKey: 'timesheet.overtimeHours',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                }
+              ]
+            },
+            {
+              "name": "Pagination",
+              "nodeName": "bln-pagination",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "N8UCR8"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.isLoaded",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "pagination",
+              "expressions": [
+                {
+                  "expression": "1",
+                  "to": "currentPage"
+                },
+                {
+                  "expression": "$ctrl.paginatedTable = $ctrl.employees.slice(currentPage * 10 - 10, currentPage * 10)",
+                  "to": "onPageChange"
+                },
+                {
+                  "expression": "true",
+                  "to": "showLastPageButton"
+                },
+                {
+                  "expression": "true",
+                  "to": "showFirstPageButton"
+                },
+                {
+                  "expression": "$ctrl.totalPage()",
+                  "to": "totalPages"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "JiGile"
+            }
+          ],
+          "classList": [
+            "payslips"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"payslips\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "6R1ED9"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.payslips",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"Id\",\n        valueKey: 'payslipId',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Run type\",\n        valueKey: 'runType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Start Date\",\n        valueKey: 'startDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"End Date\",\n        valueKey: 'regularHours',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Check Date\",\n        valueKey: 'regularHours',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableSorting"
+                },
+                {
+                  "expression": "$ctrl.handlePayslipSelection(row)",
+                  "to": "onSelection"
+                }
+              ]
+            },
+            {
+              "name": "Pagination",
+              "nodeName": "bln-pagination",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "-svEOa"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.isLoaded",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "pagination",
+              "expressions": [
+                {
+                  "expression": "1",
+                  "to": "currentPage"
+                },
+                {
+                  "expression": "$ctrl.paginatedTable = $ctrl.employees.slice(currentPage * 10 - 10, currentPage * 10)",
+                  "to": "onPageChange"
+                },
+                {
+                  "expression": "true",
+                  "to": "showLastPageButton"
+                },
+                {
+                  "expression": "true",
+                  "to": "showFirstPageButton"
+                },
+                {
+                  "expression": "$ctrl.totalPage()",
+                  "to": "totalPages"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "mTFtp6"
+            }
+          ],
+          "classList": [
+            "benefits"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"benefits\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "JtCxyX"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.benefits",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "console.log(row, value)",
+                  "to": "onSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"Name\",\n        valueKey: 'benefitName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Employee Deduction\",\n        valueKey: 'employeeDeduction',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Company Deduction\",\n        valueKey: 'companyDeduction',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableCheckboxes"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableMultiSelection"
+                },
+                {
+                  "expression": "$ctrl.selectedAssignments",
+                  "to": "selectedRow"
+                }
+              ]
+            },
+            {
+              "name": "Pagination",
+              "nodeName": "bln-pagination",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "D1iRr4"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.isLoaded",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "pagination",
+              "expressions": [
+                {
+                  "expression": "1",
+                  "to": "currentPage"
+                },
+                {
+                  "expression": "$ctrl.paginatedTable = $ctrl.employees.slice(currentPage * 10 - 10, currentPage * 10)",
+                  "to": "onPageChange"
+                },
+                {
+                  "expression": "true",
+                  "to": "showLastPageButton"
+                },
+                {
+                  "expression": "true",
+                  "to": "showFirstPageButton"
+                },
+                {
+                  "expression": "$ctrl.totalPage()",
+                  "to": "totalPages"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "-c5jpn"
+            }
+          ],
+          "classList": [
+            "earnings"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"earnings\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "IWvQ8W"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.earnings",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"Type\",\n        valueKey: 'earningType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Amount\",\n        valueKey: 'amount',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableMultiSelection"
+                },
+                {
+                  "expression": "$ctrl.selectedAssignments",
+                  "to": "selectedRow"
+                }
+              ]
+            },
+            {
+              "name": "Pagination",
+              "nodeName": "bln-pagination",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "QRsUX6"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.isLoaded",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "pagination",
+              "expressions": [
+                {
+                  "expression": "1",
+                  "to": "currentPage"
+                },
+                {
+                  "expression": "$ctrl.paginatedTable = $ctrl.employees.slice(currentPage * 10 - 10, currentPage * 10)",
+                  "to": "onPageChange"
+                },
+                {
+                  "expression": "true",
+                  "to": "showLastPageButton"
+                },
+                {
+                  "expression": "true",
+                  "to": "showFirstPageButton"
+                },
+                {
+                  "expression": "$ctrl.totalPage()",
+                  "to": "totalPages"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "65MVPN"
+            }
+          ],
+          "classList": [
+            "deductions"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "$ctrl.currentTab === \"deductions\"",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "Tz3_OF"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.deductions",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"Name\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        valueKey: 'deductionName',\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Type\",\n        valueKey: 'deductionType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Amount\",\n        valueKey: 'amount',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Employer Tax\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        valueKey: 'employerTax',\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableMultiSelection"
+                },
+                {
+                  "expression": "$ctrl.selectedAssignments",
+                  "to": "selectedRow"
+                }
+              ]
+            },
+            {
+              "name": "Pagination",
+              "nodeName": "bln-pagination",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "lncKS4"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.isLoaded",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "pagination",
+              "expressions": [
+                {
+                  "expression": "1",
+                  "to": "currentPage"
+                },
+                {
+                  "expression": "$ctrl.paginatedTable = $ctrl.employees.slice(currentPage * 10 - 10, currentPage * 10)",
+                  "to": "onPageChange"
+                },
+                {
+                  "expression": "true",
+                  "to": "showLastPageButton"
+                },
+                {
+                  "expression": "true",
+                  "to": "showFirstPageButton"
+                },
+                {
+                  "expression": "$ctrl.totalPage()",
+                  "to": "totalPages"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "WxReaf"
+            }
+          ],
+          "classList": [
+            "footer"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "!$ctrl.isEditing",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            },
+            {
+              "property": "justify-content",
+              "value": "end",
+              "enabled": true
+            },
+            {
+              "property": "margin-top",
+              "value": "20px",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "WCpAcU"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.currentTab !== \"details\" && $ctrl.currentTab !== \"timesheet\"  && $ctrl.currentTab !== \"payslips\"",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "color",
+                  "value": "#fff;",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"plus\",\n  \"position\": \"left\"\n})",
+                  "to": "icon"
+                },
+                {
+                  "expression": "\"default\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "\"New\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.handleNewAssignment($ctrl.currentTab.substring(0, $ctrl.currentTab.length - 2))",
+                  "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.isLoading",
+                  "to": "showLoading"
+                }
+              ]
+            },
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "_NtTGi"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.currentTab === \"details\" ",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"user-edit\",\n  \"position\": \"left\"\n})",
+                  "to": "icon"
+                },
+                {
+                  "expression": "\"secondary\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "\"Edit\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.handleEdit()",
+                  "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.isLoading",
+                  "to": "showLoading"
+                }
+              ]
+            },
+            {
+              "name": "Button",
+              "nodeName": "bln-button",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "_n_rXMvq"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [
+                "warning-btn"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "$ctrl.currentTab !== \"timesheet\" && $ctrl.currentTab !== \"payslips\"",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-button-primary-bg-color",
+                  "value": "#a91919",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-primary-hovered-bg-color",
+                  "value": "#871414",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-primary-active-bg-color",
+                  "value": "#761111",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-bg-color",
+                  "value": "#aa0909",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-hovered-bg-color",
+                  "value": "#880707",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-active-bg-color",
+                  "value": "#770606",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-button-default-hovered-text-color",
+                  "value": "#f5f5f5",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "button",
+              "expressions": [
+                {
+                  "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"trash\",\n  \"position\": \"left\"\n})",
+                  "to": "icon"
+                },
+                {
+                  "expression": "\"default\"",
+                  "to": "type"
+                },
+                {
+                  "expression": "\"Delete\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.handleDelete($ctrl.currentTab)",
+                  "to": "onClick"
+                },
+                {
+                  "expression": "$ctrl.isLoading",
+                  "to": "showLoading"
+                },
+                {
+                  "expression": "$ctrl.currentTab !== \"details\" && !$ctrl.selectedAssignments",
+                  "to": "isDisabled"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}

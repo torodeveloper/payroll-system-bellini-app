@@ -1,0 +1,18 @@
+.warning-btn > .default {
+    background-color: #b82020;   
+    color: #f9f9f9;
+    max-height: fit-content;
+    max-width: fit-content;
+}
+
+.data-group p,.data-group h4 {
+    margin: 0;
+}
+
+.data-group p{
+    text-indent: 1rem;
+    margin-top: 0.5rem;
+    border-bottom: 2px solid #262626;
+    width: 150px;
+    min-width: fit-content;
+}

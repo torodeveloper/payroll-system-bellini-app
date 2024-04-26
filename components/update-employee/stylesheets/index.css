@@ -1,0 +1,53 @@
+update-employee {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+update-employee > .modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px #ccc;
+  border-bottom: none;
+  background-color: #fff;
+  padding: 10px;
+}
+
+update-employee > .modal-header > .modal-title {
+  font-weight: 700;
+}
+
+update-employee > .modal-header > .modal-close {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+update-employee > .modal-body {
+  border: solid 1px #ccc;
+  background-color: #fff;
+  padding: 10px;
+  min-width: 300px;
+  height: fit-content;
+}
+
+update-employee > .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  border: solid 1px #ccc;
+  border-top: none;
+  background-color: #fff;
+  padding: 10px;
+}
+
+update-employee .btn-cancel {
+  margin-right: 0.5rem;
+}
+
+update-employee  .btn-cancel {
+  margin-right: 0.5rem;
+}
+
+.btn-ok .primary{
+  background-color: #3AAFA9;
+}
