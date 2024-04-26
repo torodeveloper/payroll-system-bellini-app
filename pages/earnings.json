@@ -1,0 +1,745 @@
+{
+  "name": "earnings",
+  "type": "page",
+  "url": "/earnings-page",
+  "params": {},
+  "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dff8ef871b7b8ec68d76e"
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "$notificationManager",
+      "type": "service"
+    },
+    {
+      "name": "$state",
+      "type": "service"
+    },
+    {
+      "name": "earnings",
+      "type": "array",
+      "description": "Contains all the retrieved employees",
+      "children": []
+    },
+    {
+      "name": "paginatedEarnings",
+      "type": "property",
+      "description": "Contains the sliced earnings based on page",
+      "value": ""
+    },
+    {
+      "name": "getEarnings",
+      "type": "method",
+      "description": "Handles retrieving employee list on load",
+      "body": "$ctrl.payrollApi.employee_services_payslipItems_GetAllEarnings().then(result => {\n    $ctrl.earnings = result.data.earnings\n   $ctrl.paginatedEarnings = result.data.earnings.slice(0, $ctrl.pageSize)\n}).catch(e => {\n    console.log(e)\n})",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "isLoading",
+      "type": "property",
+      "description": "Contains the loading status of API call",
+      "value": "false"
+    },
+    {
+      "name": "pageSize",
+      "type": "property",
+      "description": "Contain the number of rows per table page",
+      "value": "10"
+    },
+    {
+      "name": "currentPage",
+      "type": "property",
+      "description": "Contains the current table page",
+      "value": ""
+    },
+    {
+      "name": "selectedEarning",
+      "type": "property",
+      "description": "Contains the selected earning when clicking on the row of the table",
+      "value": ""
+    },
+    {
+      "name": "totalPage",
+      "type": "method",
+      "description": "Contains the total page of the table's pagination",
+      "body": "return $ctrl.earnings.length > 0 ? Math.ceil($ctrl.earnings.length / $ctrl.pageSize) : 0",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleRowClick",
+      "type": "method",
+      "description": "Handles the click of a row and to redirect to employee view",
+      "body": "$ctrl.$state.go('employee-view', {employeeId: row.employeeId})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "row"
+      ]
+    },
+    {
+      "name": "handleUploadAttendance",
+      "type": "method",
+      "description": "Handles the button click for opening modal",
+      "body": "$ctrl.$modal.open(\"upload-attendance\" ).then((result)=>{\n    if(result.result === \"ok\") {\n        console.log(result.csv)\n\n        const formData = new FormData()\n        formData.append('attendanceCsv', result.csv)\n\n        $ctrl.payroll2.attendance_services_AddAttendance(formData).then(result => {\n            console.log(result)\n        }).catch(err=> console.log(err))\n\n        // $ctrl.$http.post(\n        //     // {\n        // //     method: \"POST\",\n        // //     url:'https://humorous-barely-pup.ngrok-free.app/api/Payroll/v1/attendance/add', \n        // //     headers: {\n        // //         'ngrok-skip-browser-warning': 'asd',\n        // //         'Content-Type': 'multipart/form-data'\n        // //     },\n        // //    data: formData }\n        //     // }\n        //         '/api/proxy/secured-api/attendance/add', \n        //         formData,\n        //         {transformRequest: () => formData,\n        //         headers: {\n        //             'ngrok-skip-browser-warning': 'asd',\n        //             'x-bellini-proxy-target': 'https://humorous-barely-pup.ngrok-free.app/api/Payroll/v1/attendance/add'\n        //         }}\n              \n        //     )\n        // for (const pair of formData.entries()) {\n        //     console.log(pair[0]+ ', ' + JSON.stringify(pair[1])); \n        // }\n        \n        // $ctrl.payrollApi.attendance_services_AddAttendance({},formData).then(result => {\n        //         $ctrl.$notificationManager.show('Successfully uploaded attendance', {color: 'success'})\n        //     }).catch(err => {\n        //         console.error('Upload error', err)\n        //         $ctrl.$notificationManager.show('Error occured uploading attendance', {color: 'danger'})\n\n        //     })\n        } \n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleAdd",
+      "type": "method",
+      "description": "Handles the click of add employee button. It also handles the retrieval of role so that the role dropdown is populated. Lastly, calls the handleOpenModal func.",
+      "body": "\n$ctrl.$modal.open(\"add-earning\").then((result)=>{\n    if(result.result === \"ok\") {\n        $ctrl.isLoading = true;\n        $ctrl.payrollApi.employee_services_payslipItems_CreateEarning(\n            {},\n            {\n                earningType: result.earningType,\n                amount: result.amount\n            }\n        ).then(result => {\n            $ctrl.earnings.push(result.data.createdEarning)\n            $ctrl.handlePageChange($ctrl.currentPage)\n            $ctrl.$notificationManager.show('Successfully created new earning', {color: 'success'})\n        }).catch(err => {\n            $ctrl.$notificationManager.show('Error occured creating new earning', {color: 'danger'})\n        }).finally(()=> $ctrl.isLoading = false)\n    } else {\n        $ctrl.isLoading = false;\n    }\n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleDelete",
+      "type": "method",
+      "description": "Handles the deletion of an earning",
+      "body": "$ctrl.$modal.open('delete', {obj: 'earning'}).then(res=> {\n    if (res.result === \"ok\") {\n        $ctrl.isLoading = true\n        \n        $ctrl.payrollApi.employee_services_payslipItems_DeleteEarning({\n            earningType: $ctrl.selectedEarning.earningType\n        }).then(result => {\n                $ctrl.earnings = $ctrl.earnings.filter(earning => earning.earningType !== $ctrl.selectedEarning.earningType)\n                console.log($ctrl.earnings)\n                $ctrl.handlePageChange($ctrl.currentPage)\n                $ctrl.$notificationManager.show('Successfully deleted earning', {color: 'success'})\n        }).catch(err => $ctrl.$notificationManager.show(err.data.message || 'Error occured deleting earning', {color: 'danger'}))\n        .finally(()=> $ctrl.isLoading = false)\n    }\n})\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleUpdate",
+      "type": "method",
+      "description": "Handles the update of an earning",
+      "body": "$ctrl.$modal.open('update-earning', {...$ctrl.selectedEarning}).then(res=> {\n    if (res.result === \"ok\") {\n        $ctrl.isLoading = true\n        \n       $ctrl.payrollApi.employee_services_payslipItems_UpdateEarning(\n            {\n                earningType: res.earningType\n            },\n            {\n                amount: res.amount, \n            }\n        ).then(result => {\n                // $ctrl.earnings = $ctrl.earnings.filter(earning => earning.earningType !== $ctrl.selectedEarning.earningType)\n                $ctrl.earnings = $ctrl.earnings.map(earning =>{\n                     if (earning.earningType === res.earningType) {\n                        return {...earning, amount: result.data.updatedEarning.amount}\n                     } else {\n                        return earning\n                     }\n                })\n                $ctrl.handlePageChange($ctrl.currentPage)\n                $ctrl.$notificationManager.show('Successfully updated earning', {color: 'success'})\n        }).catch(err => $ctrl.$notificationManager.show(err.data.message || 'Error occured updating earning', {color: 'danger'}))\n        .finally(()=> $ctrl.isLoading = false)\n    }\n})\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handlePageChange",
+      "type": "method",
+      "description": "Handles the settings of paginated employees",
+      "body": "$ctrl.paginatedEarnings = $ctrl.earnings.slice(currentPage * $ctrl.pageSize - $ctrl.pageSize, currentPage * $ctrl.pageSize)\n$ctrl.currentPage = currentPage\n$ctrl.selectedEarning = undefined",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "currentPage"
+      ]
+    },
+    {
+      "name": "selectedCell",
+      "type": "property",
+      "description": "Contains the object of the selected cell",
+      "value": ""
+    }
+  ],
+  "children": [
+    {
+      "name": "navigation-bar",
+      "nodeName": "navigation-bar",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "_cKL0d"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [],
+      "comments": "",
+      "type": "custom-component",
+      "id": "662705ad95ff897e7860fefa",
+      "expressions": []
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "h3JPcj"
+        }
+      ],
+      "classList": [
+        "wrapper"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        },
+        {
+          "property": "margin",
+          "value": "0 auto",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "yj5o-J"
+            }
+          ],
+          "classList": [
+            "header"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin-top",
+              "value": "20px",
+              "enabled": true
+            },
+            {
+              "property": "height",
+              "value": "5%",
+              "enabled": true
+            },
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            },
+            {
+              "property": "align-items",
+              "value": "center",
+              "enabled": true
+            },
+            {
+              "property": "justify-content",
+              "value": "space-between;",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "h1",
+              "nodeName": "h1",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "NtPFls"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "font-weight",
+                  "value": "bold",
+                  "enabled": true
+                },
+                {
+                  "property": "color",
+                  "value": "#2B7A78",
+                  "enabled": true
+                },
+                {
+                  "property": "font-size",
+                  "value": "20px",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "text",
+                  "nodeName": "text",
+                  "textContent": "Earnings",
+                  "evaluate": false
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "ugID9I"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "!$ctrl.isEditing",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "display",
+                  "value": "flex",
+                  "enabled": true
+                },
+                {
+                  "property": "justify-content",
+                  "value": "end",
+                  "enabled": true
+                },
+                {
+                  "property": "margin-top",
+                  "value": "20px",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "DekO60"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "$ctrl.currentTab !== \"details\" && $ctrl.currentTab !== \"timesheet\"  && $ctrl.currentTab !== \"payslips\"",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "color",
+                      "value": "#fff;",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"plus\",\n  \"position\": \"left\"\n})",
+                      "to": "icon"
+                    },
+                    {
+                      "expression": "\"default\"",
+                      "to": "type"
+                    },
+                    {
+                      "expression": "\"New\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.handleAdd()",
+                      "to": "onClick"
+                    },
+                    {
+                      "expression": "$ctrl.isLoading",
+                      "to": "showLoading"
+                    }
+                  ]
+                },
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "hTdgNV"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"user-edit\",\n  \"position\": \"left\"\n})",
+                      "to": "icon"
+                    },
+                    {
+                      "expression": "\"secondary\"",
+                      "to": "type"
+                    },
+                    {
+                      "expression": "\"Edit\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.handleUpdate()",
+                      "to": "onClick"
+                    },
+                    {
+                      "expression": "$ctrl.isLoading",
+                      "to": "showLoading"
+                    },
+                    {
+                      "expression": "!$ctrl.selectedEarning",
+                      "to": "isDisabled"
+                    }
+                  ]
+                },
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "MkiBcq"
+                    }
+                  ],
+                  "classList": [
+                    "warning-btn"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "--bln-button-primary-bg-color",
+                      "value": "#a91919",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-primary-hovered-bg-color",
+                      "value": "#871414",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-primary-active-bg-color",
+                      "value": "#761111",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-bg-color",
+                      "value": "#aa0909",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-hovered-bg-color",
+                      "value": "#880707",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-active-bg-color",
+                      "value": "#770606",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "({\n  \"type\": \"font-icon\",\n  \"style\": \"solid\",\n  \"name\": \"trash\",\n  \"position\": \"left\"\n})",
+                      "to": "icon"
+                    },
+                    {
+                      "expression": "\"default\"",
+                      "to": "type"
+                    },
+                    {
+                      "expression": "\"Delete\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.isLoading",
+                      "to": "showLoading"
+                    },
+                    {
+                      "expression": "!$ctrl.selectedEarning",
+                      "to": "isDisabled"
+                    },
+                    {
+                      "expression": "$ctrl.handleDelete()",
+                      "to": "onClick"
+                    }
+                  ]
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "hr",
+          "nodeName": "hr",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "mJdxXN"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "QlwIcr"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin",
+              "value": "20px",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "2G-ppM"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.paginatedEarnings",
+                  "to": "data"
+                },
+                {
+                  "expression": "[{\n        name: \"Name\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        valueKey: 'earningType'\n    },\n    {\n        name: \"Amount\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        valueKey: 'amount',\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableMultiSelection"
+                },
+                {
+                  "expression": "$ctrl.selectedEarning",
+                  "to": "selectedRow"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "$ctrl.handleUpdate(row, columnName, oldValue)",
+                  "to": "onAfterCellEdit"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "Pagination",
+          "nodeName": "bln-pagination",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "8McdIL"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "pagination",
+          "expressions": [
+            {
+              "expression": "1",
+              "to": "currentPage"
+            },
+            {
+              "expression": "$ctrl.handlePageChange(currentPage)",
+              "to": "onPageChange"
+            },
+            {
+              "expression": "true",
+              "to": "showLastPageButton"
+            },
+            {
+              "expression": "true",
+              "to": "showFirstPageButton"
+            },
+            {
+              "expression": "$ctrl.totalPage()",
+              "to": "totalPages"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}
