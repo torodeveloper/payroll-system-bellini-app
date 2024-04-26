@@ -1,0 +1,723 @@
+{
+  "name": "employees",
+  "type": "page",
+  "url": "/employees",
+  "params": {},
+  "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dff8ef871b7b8ec68d76e"
+    },
+    {
+      "name": "employees",
+      "type": "array",
+      "description": "Contains all the retrieved employees",
+      "children": []
+    },
+    {
+      "name": "paginatedEmployees",
+      "type": "array",
+      "description": "Contains the spliced list of employees for paginating",
+      "children": []
+    },
+    {
+      "name": "roles",
+      "type": "array",
+      "description": "Contains the array of objects for dropwdown",
+      "children": []
+    },
+    {
+      "name": "getEmployees",
+      "type": "method",
+      "description": "Handles retrieving employee list on load",
+      "body": "$ctrl.payrollApi.employee_services_employee_GetEmployeeDetailsWithPayGroups({}).then(result => {\n   $ctrl.employees = result.data.employees\n   $ctrl.paginatedEmployees = result.data.employees.slice(0, $ctrl.pageSize)\n}).catch(e => {\n    console.log(e)\n})\n",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "$state",
+      "type": "service"
+    },
+    {
+      "name": "isLoading",
+      "type": "property",
+      "description": "Contains the loading status of API call",
+      "value": "false"
+    },
+    {
+      "name": "pageSize",
+      "type": "property",
+      "description": "Contain the number of rows per table page",
+      "value": "10"
+    },
+    {
+      "name": "currentPage",
+      "type": "property",
+      "description": "Contains the current table page",
+      "value": ""
+    },
+    {
+      "name": "totalPage",
+      "type": "method",
+      "description": "Contains the total page of the table's pagination",
+      "body": "return $ctrl.employees.length > 0 ? Math.ceil($ctrl.employees.length / $ctrl.pageSize) : 0",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "handleRowClick",
+      "type": "method",
+      "description": "Handles the click of a row and to redirect to employee view",
+      "body": "$ctrl.$state.go('employee-view', {employeeId: row.employeeId})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "row"
+      ]
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "handleUploadAttendance",
+      "type": "method",
+      "description": "Handles the click of a row and to redirect to employee view",
+      "body": "$ctrl.$state.go('employee-view', {employeeId: row.employeeId})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "row"
+      ]
+    },
+    {
+      "name": "handleAddEmployee",
+      "type": "method",
+      "description": "Handles the click of add employee button. It also handles the retrieval of role so that the role dropdown is populated. Lastly, calls the handleOpenModal func.",
+      "body": "$ctrl.isLoading = true;\nlet roles;\n\n$ctrl.payrollApi.employee_services_role_GetAllRoles().then(result => {\n    roles = result.data.roles.map(role => ({label: role.roleTitle, value: role.roleTitle}))\n}).then(()=> {\n    $ctrl.$modal.open(\"add-employee\", {roles}).then((result)=>{\n    if(result.result === \"ok\") {\n            $ctrl.payrollApi.employee_services_employee_CreateEmployee(\n                {},\n                {\n                    firstName: result.firstName,\n                    lastName: result.lastName,\n                    roleTitle: result.roleTitle\n                }\n            ).then(result => {\n                $ctrl.payrollApi.employee_services_employee_GetEmployeeDetails({\n                    employeeId: result.data.createdEmployee.employeeId,\n                }).then(res => {\n                    const employeeFullName = result.data.createdEmployee.firstName + \" \" + result.data.createdEmployee.lastName\n                    $ctrl.employees.push({\n                        ...res.data.employeeDetails, \n                        employeeFullName, \n                        employeeId: result.data.createdEmployee.employeeId\n                    })\n                    $ctrl.handlePageChange($ctrl.currentPage)\n                    $ctrl.$notificationManager.show('Successfully added employee', {color: 'success'})\n                }).finally(()=> $ctrl.isLoading = false)\n            \n            }).catch(err => {\n               $ctrl.$notificationManager.show('Error occured adding employee', {color: 'danger'})\n            }).finally(()=> $ctrl.isLoading = false)\n           \n        } else {\n            $ctrl.isLoading = false;\n        }\n    })\n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "$notificationManager",
+      "type": "service"
+    },
+    {
+      "name": "$http",
+      "type": "service"
+    },
+    {
+      "name": "payroll2",
+      "type": "open-api",
+      "id": "661f5fec95ff897e7860fdda"
+    },
+    {
+      "name": "payrollSystemApi",
+      "type": "open-api",
+      "id": "660dfc15f871b7b8ec68d760"
+    },
+    {
+      "name": "handlePageChange",
+      "type": "method",
+      "description": "Handles the settings of paginated employees",
+      "body": "$ctrl.paginatedEmployees = $ctrl.employees.slice(currentPage * $ctrl.pageSize - $ctrl.pageSize, currentPage * $ctrl.pageSize)\n$ctrl.currentPage = currentPage",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "currentPage"
+      ]
+    },
+    {
+      "name": "handleAddEmployee",
+      "type": "method",
+      "description": "Handles the click of add employee button. It also handles the retrieval of role so that the role dropdown is populated. Lastly, calls the handleOpenModal func.",
+      "body": "$ctrl.isLoading = true;\nlet roles;\n\n$ctrl.payrollApi.employee_services_role_GetAllRoles().then(result => {\n    roles = result.data.roles.map(role => ({label: role.roleTitle, value: role.roleTitle}))\n}).then(()=> {\n    $ctrl.$modal.open(\"add-employee\", {roles}).then((result)=>{\n    if(result.result === \"ok\") {\n            $ctrl.payrollApi.employee_services_employee_CreateEmployee(\n                {},\n                {\n                    firstName: result.firstName,\n                    lastName: result.lastName,\n                    roleTitle: result.roleTitle\n                }\n            ).then(result => {\n                $ctrl.payrollApi.employee_services_employee_GetEmployeeDetails({\n                    employeeId: result.data.createdEmployee.employeeId,\n                }).then(res => {\n                    const employeeFullName = result.data.createdEmployee.firstName + \" \" + result.data.createdEmployee.lastName\n                    $ctrl.employees.push({\n                        ...res.data.employeeDetails, \n                        employeeFullName, \n                        employeeId: result.data.createdEmployee.employeeId\n                    })\n                    $ctrl.handlePageChange($ctrl.currentPage)\n                    $ctrl.$notificationManager.show('Successfully added employee', {color: 'success'})\n                }).finally(()=> $ctrl.isLoading = false)\n            \n            }).catch(err => {\n               $ctrl.$notificationManager.show('Error occured adding employee', {color: 'danger'})\n            }).finally(()=> $ctrl.isLoading = false)\n           \n        } else {\n            $ctrl.isLoading = false;\n        }\n    })\n})",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "$notificationManager",
+      "type": "service"
+    },
+    {
+      "name": "$http",
+      "type": "service"
+    },
+    {
+      "name": "payroll2",
+      "type": "open-api",
+      "id": "661f5fec95ff897e7860fdda"
+    },
+    {
+      "name": "payrollSystemApi",
+      "type": "open-api",
+      "id": "660dfc15f871b7b8ec68d760"
+    },
+    {
+      "name": "handlePageChange",
+      "type": "method",
+      "description": "Handles the settings of paginated employees",
+      "body": "$ctrl.paginatedEmployees = $ctrl.employees.slice(currentPage * $ctrl.pageSize - $ctrl.pageSize, currentPage * $ctrl.pageSize)\n$ctrl.currentPage = currentPage",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": [
+        "currentPage"
+      ]
+    }
+  ],
+  "children": [
+    {
+      "name": "navigation-bar",
+      "nodeName": "navigation-bar",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "597ImU"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [],
+      "comments": "",
+      "type": "custom-component",
+      "id": "660dfebcf871b7b8ec68d76c",
+      "expressions": []
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "o-kK1M"
+        }
+      ],
+      "classList": [
+        "wrapper"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "width",
+          "value": "90%",
+          "enabled": true
+        },
+        {
+          "property": "margin",
+          "value": "0 auto",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "CeWcYJ"
+            }
+          ],
+          "classList": [
+            "header"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin-top",
+              "value": "20px",
+              "enabled": true
+            },
+            {
+              "property": "height",
+              "value": "5%",
+              "enabled": true
+            },
+            {
+              "property": "display",
+              "value": "flex",
+              "enabled": true
+            },
+            {
+              "property": "justify-content",
+              "value": "space-between;",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "p",
+              "nodeName": "p",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "6peP0J"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "font-weight",
+                  "value": "bold",
+                  "enabled": true
+                },
+                {
+                  "property": "color",
+                  "value": "#2B7A78",
+                  "enabled": true
+                },
+                {
+                  "property": "font-size",
+                  "value": "20px",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "text",
+                  "nodeName": "text",
+                  "textContent": "Employees",
+                  "evaluate": false
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "NpreBF"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "display",
+                  "value": "flex",
+                  "enabled": true
+                },
+                {
+                  "property": "align-items",
+                  "value": "center;",
+                  "enabled": true
+                },
+                {
+                  "property": "column-gap",
+                  "value": "15px;",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "0TMNDH"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "width",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-text-color",
+                      "value": "#fff",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "\"Add employee\"",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.handleAddEmployee()",
+                      "to": "onClick"
+                    },
+                    {
+                      "expression": "$ctrl.isLoading",
+                      "to": "showLoading"
+                    }
+                  ]
+                },
+                {
+                  "name": "Button",
+                  "nodeName": "bln-button",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "iLdFzp"
+                    },
+                    {
+                      "property": "core",
+                      "value": ""
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "width",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "fit-content",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-button-default-text-color",
+                      "value": "#fff",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "button",
+                  "expressions": [
+                    {
+                      "expression": "'Upload attendance'",
+                      "to": "label"
+                    },
+                    {
+                      "expression": "$ctrl.handleUploadAttendance()",
+                      "to": "onClick"
+                    }
+                  ]
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "hr",
+          "nodeName": "hr",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "e6G11Y"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "_HQbLP"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "margin",
+              "value": "20px",
+              "enabled": true
+            },
+            {
+              "property": "padding-bottom",
+              "value": "50px",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "Table",
+              "nodeName": "bln-table",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "core",
+                  "value": ""
+                },
+                {
+                  "property": "data-id",
+                  "value": "msYJ_w"
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "--bln-table-height",
+                  "value": "auto",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-header-bg-color",
+                  "value": "#DEF2F1",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-bg-color",
+                  "value": "#ffffff",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-hovered-bg-color",
+                  "value": "#cccccc",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-border-color",
+                  "value": "#17252A",
+                  "enabled": true
+                },
+                {
+                  "property": "--bln-table-secondary-bg-color",
+                  "value": "#fff",
+                  "enabled": true
+                }
+              ],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "table",
+              "expressions": [
+                {
+                  "expression": "$ctrl.paginatedEmployees",
+                  "to": "data"
+                },
+                {
+                  "expression": "true",
+                  "to": "resizableColumns"
+                },
+                {
+                  "expression": "false",
+                  "to": "enableEditing"
+                },
+                {
+                  "expression": "true",
+                  "to": "enablePagination"
+                },
+                {
+                  "expression": "10",
+                  "to": "pageSize"
+                },
+                {
+                  "expression": "true",
+                  "to": "enableRowSelection"
+                },
+                {
+                  "expression": "$ctrl.handleRowClick(row)",
+                  "to": "onSelection"
+                },
+                {
+                  "expression": "[{\n        name: \"ID\",\n        valueKey: 'employeeId',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"NAME\",\n        valueKey: 'employeeFullName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"ROLE\",\n        valueKey: 'roleTitle',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"PAYGROUP\",\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        resizable: false,\n        valueKey: 'payGroupName',\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                  "to": "columns"
+                }
+              ]
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "Pagination",
+          "nodeName": "bln-pagination",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "s-msTv"
+            },
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "pagination",
+          "expressions": [
+            {
+              "expression": "1",
+              "to": "currentPage"
+            },
+            {
+              "expression": "$ctrl.handlePageChange(currentPage)",
+              "to": "onPageChange"
+            },
+            {
+              "expression": "true",
+              "to": "showLastPageButton"
+            },
+            {
+              "expression": "true",
+              "to": "showFirstPageButton"
+            },
+            {
+              "expression": "$ctrl.totalPage()",
+              "to": "totalPages"
+            }
+          ]
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}

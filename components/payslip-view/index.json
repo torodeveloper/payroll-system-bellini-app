@@ -1,0 +1,778 @@
+{
+  "type": "custom-component",
+  "name": "payslip-view",
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "wBM8Wz"
+        }
+      ],
+      "classList": [
+        "modal-header"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "xgnRGj"
+            }
+          ],
+          "classList": [
+            "modal-title"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Payslip #\"+ $ctrl.payslip.payslipId",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "F_hRIK"
+            }
+          ],
+          "classList": [
+            "modal-close"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "H_pbAP"
+        }
+      ],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [
+        {
+          "property": "display",
+          "value": "grid",
+          "enabled": true
+        },
+        {
+          "property": "grid-template-columns",
+          "value": "repeat(2, 1fr)",
+          "enabled": true
+        },
+        {
+          "property": "column-gap",
+          "value": "20px",
+          "enabled": true
+        }
+      ],
+      "children": [
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "c38xJy"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Payroll Id: \" + $ctrl.payslip.payrollId",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "cd5Zowqe"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Run type: \" + $ctrl.payslip.runType",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "Vrzg-jHr"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Start date: \" + $ctrl.payslip.startDate",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "ZCnEWz11"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"End date: \" + $ctrl.payslip.endDate",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "zxDtSYXk"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Check date: \" + $ctrl.payslip.checkDate",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "5hg6l1tw"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Hours worked: \" + $ctrl.payslip.hoursWorked",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "6XFaim"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Overtime: \" + $ctrl.payslip.overtime",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "cKJ7nith"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Hours late: \" + $ctrl.payslip.lates",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "ykZeCcuz"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Overtime pay: \" + $ctrl.payslip.overtimePay",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "JFUtd7W3"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Undertime: \" + $ctrl.payslip.undertime",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "ibSu7D3e"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Regular pay: \" + $ctrl.payslip.regularPay",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "Je8lrqrT"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Late deduction: \" + $ctrl.payslip.lateDeduction",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "KNuoaPvE"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Compensations: \" + $ctrl.payslip.compensations",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "KSRq8Xeo"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Gross pay: \" + $ctrl.payslip.grossPay",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "dg1Bj0lp"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Deductions: \" + $ctrl.payslip.deductions",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        },
+        {
+          "name": "p",
+          "nodeName": "p",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "EdOBiWZg"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "text",
+              "nodeName": "text",
+              "textContent": "\"Net pay: \" + $ctrl.payslip.netPay",
+              "evaluate": true
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "classList": [
+        "modal-footer"
+      ],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "'OK'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "payslip",
+      "type": "=",
+      "description": "Contains the selected payslip object",
+      "propertyType": "property",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "externalScripts": [],
+  "externalStylesheets": []
+}
