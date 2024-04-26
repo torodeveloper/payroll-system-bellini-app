@@ -48,6 +48,18 @@
     {
       "name": "$modal",
       "type": "service"
+    },
+    {
+      "name": "page",
+      "type": "property",
+      "description": "",
+      "value": "1"
+    },
+    {
+      "name": "showPagination",
+      "type": "property",
+      "description": "",
+      "value": "true"
     }
   ],
   "children": [
@@ -467,6 +479,22 @@
                     {
                       "expression": "$ctrl.$state.go(\"payslips\", {id: row.payrollId})\n ",
                       "to": "onSelection"
+                    },
+                    {
+                      "expression": "false",
+                      "to": "enableEditing"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "enablePagination"
+                    },
+                    {
+                      "expression": "10",
+                      "to": "pageSize"
+                    },
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
                     }
                   ]
                 },
@@ -487,7 +515,7 @@
                   "classList": [],
                   "conditionalClasses": [],
                   "contentType": "text",
-                  "displayExpression": "",
+                  "displayExpression": "$ctrl.showPagination",
                   "events": {},
                   "iterate": {
                     "array": "",
@@ -499,7 +527,16 @@
                   "comments": "",
                   "type": "core-component",
                   "id": "pagination",
-                  "expressions": []
+                  "expressions": [
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
+                    },
+                    {
+                      "expression": "$ctrl.getAllDeduction()",
+                      "to": "onPageChange"
+                    }
+                  ]
                 },
                 {
                   "name": "Spinner",
