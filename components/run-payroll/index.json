@@ -9,7 +9,7 @@
       "attributes": [
         {
           "property": "data-id",
-          "value": "J6LFQY"
+          "value": "yXVmAU"
         }
       ],
       "classList": [
@@ -33,7 +33,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "O3y0Nc"
+              "value": "ajyGYO"
             }
           ],
           "classList": [
@@ -66,7 +66,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "WPeHh9"
+              "value": "1tPWF4"
             }
           ],
           "classList": [
@@ -104,7 +104,7 @@
       "attributes": [
         {
           "property": "data-id",
-          "value": "Bce2yp"
+          "value": "cXrtPe"
         }
       ],
       "classList": [
@@ -127,12 +127,12 @@
           "elementId": "",
           "attributes": [
             {
-              "property": "data-id",
-              "value": "tE-sbK"
-            },
-            {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "gXpWhC"
             }
           ],
           "classList": [],
@@ -178,12 +178,12 @@
           "elementId": "",
           "attributes": [
             {
-              "property": "data-id",
-              "value": "E6tr3rPb"
-            },
-            {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "xnVajy"
             }
           ],
           "classList": [],
@@ -229,12 +229,12 @@
           "elementId": "",
           "attributes": [
             {
-              "property": "data-id",
-              "value": "tSAXKy"
-            },
-            {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "R_OG6t"
             }
           ],
           "classList": [],
@@ -276,12 +276,12 @@
           "elementId": "",
           "attributes": [
             {
-              "property": "data-id",
-              "value": "-Y5R0X89"
-            },
-            {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "LgTmMP"
             }
           ],
           "classList": [],
@@ -323,12 +323,12 @@
           "elementId": "",
           "attributes": [
             {
-              "property": "data-id",
-              "value": "pBI5k_DR"
-            },
-            {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "XIRgLE"
             }
           ],
           "classList": [],
@@ -369,17 +369,40 @@
     },
     {
       "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "9DJtK2"
+        }
+      ],
       "classList": [
         "modal-footer"
       ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
       "children": [
         {
           "name": "Button",
           "nodeName": "bln-button",
+          "elementId": "",
           "attributes": [
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "1gWYEh"
             }
           ],
           "classList": [
@@ -396,6 +419,7 @@
           },
           "styles": [],
           "children": [],
+          "comments": "",
           "type": "core-component",
           "id": "button",
           "expressions": [
@@ -416,10 +440,15 @@
         {
           "name": "Button",
           "nodeName": "bln-button",
+          "elementId": "",
           "attributes": [
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "l_liSs"
             }
           ],
           "classList": [
@@ -436,6 +465,7 @@
           },
           "styles": [],
           "children": [],
+          "comments": "",
           "type": "core-component",
           "id": "button",
           "expressions": [
@@ -453,10 +483,16 @@
             }
           ]
         }
-      ]
+      ],
+      "comments": ""
     }
   ],
   "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dfe51f871b7b8ec68d76b"
+    },
     {
       "type": "method",
       "name": "onOkClick",
@@ -472,11 +508,6 @@
       "parameters": []
     },
     {
-      "name": "payrollApi",
-      "type": "open-api",
-      "id": "660dfe51f871b7b8ec68d76b"
-    },
-    {
       "name": "handleFetchRunPayroll",
       "type": "method",
       "description": "Runs the post method handleFetchRunPayroll after the values are defined",
@@ -490,6 +521,48 @@
     }
   ],
   "bindings": [
+    {
+      "name": "checkDate",
+      "type": "=",
+      "description": "Contains the selected checkDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "chosenPaygGoup",
+      "type": "=",
+      "description": "Contains the chosenPayGroup",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "chosenRunType",
+      "type": "=",
+      "description": "Contains the runType",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "endDate",
+      "type": "=",
+      "description": "Contains the endDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "fetchPayGroup",
+      "type": "=",
+      "description": "Contains the fetchPayGroup",
+      "propertyType": "array",
+      "default": ""
+    },
+    {
+      "name": "fetchRunType",
+      "type": "=",
+      "description": "Contains the fetchRunType",
+      "propertyType": "array",
+      "default": ""
+    },
     {
       "type": "<",
       "name": "onClose",
@@ -513,51 +586,9 @@
       ]
     },
     {
-      "name": "fetchRunType",
-      "type": "=",
-      "description": "Contains the fetchRunType",
-      "propertyType": "array",
-      "default": ""
-    },
-    {
       "name": "startDate",
       "type": "=",
       "description": "Contains the startDate",
-      "propertyType": "property",
-      "default": ""
-    },
-    {
-      "name": "endDate",
-      "type": "=",
-      "description": "Contains the endDate",
-      "propertyType": "property",
-      "default": ""
-    },
-    {
-      "name": "checkDate",
-      "type": "=",
-      "description": "Contains the selected checkDate",
-      "propertyType": "property",
-      "default": ""
-    },
-    {
-      "name": "fetchPayGroup",
-      "type": "=",
-      "description": "Contains the fetchPayGroup",
-      "propertyType": "array",
-      "default": ""
-    },
-    {
-      "name": "chosenPaygGoup",
-      "type": "=",
-      "description": "Contains the chosenPayGroup",
-      "propertyType": "property",
-      "default": ""
-    },
-    {
-      "name": "chosenRunType",
-      "type": "=",
-      "description": "Contains the runType",
       "propertyType": "property",
       "default": ""
     }

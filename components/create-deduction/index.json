@@ -1,0 +1,411 @@
+{
+  "type": "custom-component",
+  "name": "create-deduction",
+  "children": [
+    {
+      "name": "div",
+      "classList": [
+        "modal-header"
+      ],
+      "children": [
+        {
+          "name": "div",
+          "classList": [
+            "modal-title"
+          ],
+          "children": [
+            {
+              "name": "text",
+              "textContent": "Title",
+              "evaluate": false
+            }
+          ]
+        },
+        {
+          "name": "div",
+          "classList": [
+            "modal-close"
+          ],
+          "events": {
+            "click": "$ctrl.onCancelClick()"
+          },
+          "children": [
+            {
+              "name": "text",
+              "textContent": "×",
+              "evaluate": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "_CVGAr"
+        }
+      ],
+      "classList": [
+        "modal-body"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "fiNo7u"
+            }
+          ],
+          "classList": [
+            "input-content"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "dLfIvv"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Deduction name\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.deduction[0]",
+                  "to": "value"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "72lj15VV"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Type\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.deduction[1]",
+                  "to": "value"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Text Input",
+              "nodeName": "bln-text-input",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "F92DdmuW"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "text-input",
+              "expressions": [
+                {
+                  "expression": "\"Amount\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.deduction[2]",
+                  "to": "value"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            },
+            {
+              "name": "Dropdown",
+              "nodeName": "bln-dropdown",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "pBDAWd"
+                },
+                {
+                  "property": "core",
+                  "value": ""
+                }
+              ],
+              "classList": [],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [],
+              "children": [],
+              "comments": "",
+              "type": "core-component",
+              "id": "dropdown",
+              "expressions": [
+                {
+                  "expression": "\"Employer tax\"",
+                  "to": "label"
+                },
+                {
+                  "expression": "$ctrl.deduction[3]",
+                  "to": "value"
+                },
+                {
+                  "expression": "[{\n        label: \"True\",\n        value: \"true\"\n    },\n    {\n        label: \"False\",\n        value: \"false\"\n    }\n]",
+                  "to": "values"
+                }
+              ],
+              "formControl": {
+                "modelName": "value"
+              }
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    },
+    {
+      "name": "div",
+      "classList": [
+        "modal-footer"
+      ],
+      "children": [
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-cancel"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"default\"",
+              "to": "type"
+            },
+            {
+              "expression": "'Cancel'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onCancelClick()",
+              "to": "onClick"
+            }
+          ]
+        },
+        {
+          "name": "Button",
+          "nodeName": "bln-button",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            }
+          ],
+          "classList": [
+            "btn-ok"
+          ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "type": "core-component",
+          "id": "button",
+          "expressions": [
+            {
+              "expression": "\"primary\"",
+              "to": "type"
+            },
+            {
+              "expression": "'OK'",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.onOkClick()",
+              "to": "onClick"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "type": "method",
+      "name": "onOkClick",
+      "description": "This function is called when OK button is clicked.",
+      "body": "$ctrl.result = 'ok'\n$ctrl.onClose()",
+      "parameters": []
+    },
+    {
+      "type": "method",
+      "name": "onCancelClick",
+      "description": "This function is called when Cancel button is clicked.",
+      "body": "$ctrl.result = 'cancel'\n$ctrl.onClose()",
+      "parameters": []
+    }
+  ],
+  "bindings": [
+    {
+      "type": "<",
+      "name": "onClose",
+      "description": "This function should be called to close the modal.",
+      "default": "() => {}",
+      "propertyType": "method"
+    },
+    {
+      "type": "<",
+      "name": "result",
+      "description": "The result of the modal that is returned after the modal is closed.",
+      "default": "",
+      "propertyType": "enum",
+      "enumOptions": [
+        {
+          "value": "ok"
+        },
+        {
+          "value": "cancel"
+        }
+      ]
+    },
+    {
+      "name": "deduction",
+      "type": "=",
+      "description": "",
+      "propertyType": "array",
+      "default": ""
+    }
+  ],
+  "modules": [],
+  "externalScripts": [],
+  "externalStylesheets": []
+}

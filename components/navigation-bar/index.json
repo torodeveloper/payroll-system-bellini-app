@@ -1,8 +1,7 @@
 {
   "type": "custom-component",
   "name": "navigation-bar",
-  "nodeName": null,
-  "description": null,
+  "nodeName": "navigation-bar",
   "children": [
     {
       "name": "Navigation",
@@ -10,12 +9,12 @@
       "elementId": "",
       "attributes": [
         {
-          "property": "data-id",
-          "value": "Feft1r"
-        },
-        {
           "property": "core",
           "value": ""
+        },
+        {
+          "property": "data-id",
+          "value": "0LJVow"
         }
       ],
       "classList": [],
@@ -52,9 +51,6 @@
   "variables": [],
   "bindings": [],
   "modules": [],
-  "marketplaceId": null,
-  "formControl": null,
-  "transclude": null,
   "externalScripts": [],
   "externalStylesheets": []
 }

@@ -1,44 +1,101 @@
 {
   "type": "custom-component",
   "name": "run-payslips",
-  "nodeName": "run-payslips",
   "children": [
     {
       "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "x6-fDk"
+        }
+      ],
       "classList": [
         "modal-header"
       ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
       "children": [
         {
           "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "LE9ByR"
+            }
+          ],
           "classList": [
             "modal-title"
           ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
           "children": [
             {
               "name": "text",
+              "nodeName": "text",
               "textContent": "Title",
               "evaluate": false
             }
-          ]
+          ],
+          "comments": ""
         },
         {
           "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "yDtBcz"
+            }
+          ],
           "classList": [
             "modal-close"
           ],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
           "events": {
             "click": "$ctrl.onCancelClick()"
           },
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
           "children": [
             {
               "name": "text",
+              "nodeName": "text",
               "textContent": "×",
               "evaluate": false
             }
-          ]
+          ],
+          "comments": ""
         }
-      ]
+      ],
+      "comments": ""
     },
     {
       "name": "div",
@@ -47,7 +104,7 @@
       "attributes": [
         {
           "property": "data-id",
-          "value": "4hfe9l"
+          "value": "zzanSG"
         }
       ],
       "classList": [
@@ -87,7 +144,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "6j8GG1"
+              "value": "-7efYa"
             }
           ],
           "classList": [],
@@ -118,7 +175,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "74oXmq"
+              "value": "xBEmCX"
             }
           ],
           "classList": [],
@@ -149,7 +206,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "UJsJa3"
+              "value": "ZOtEeV"
             }
           ],
           "classList": [],
@@ -180,7 +237,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "rMZ0JM"
+              "value": "Uge5vj"
             }
           ],
           "classList": [],
@@ -211,7 +268,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "m9yWTn"
+              "value": "GiYp27"
             }
           ],
           "classList": [],
@@ -242,7 +299,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "TF5wAK"
+              "value": "046F5w"
             }
           ],
           "classList": [],
@@ -273,7 +330,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "E0nUEe"
+              "value": "IOXwhU"
             }
           ],
           "classList": [],
@@ -304,7 +361,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "MbhhbF"
+              "value": "tfSeae"
             }
           ],
           "classList": [],
@@ -335,7 +392,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "CdLNXs"
+              "value": "GwiMJQ"
             }
           ],
           "classList": [],
@@ -366,7 +423,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "9LYqvV"
+              "value": "7XWbn8"
             }
           ],
           "classList": [],
@@ -397,7 +454,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "OIbA1-"
+              "value": "SMn1P3"
             }
           ],
           "classList": [],
@@ -428,7 +485,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "F_NDio"
+              "value": "35i5L0"
             }
           ],
           "classList": [],
@@ -459,7 +516,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "Wtz4nf"
+              "value": "hHqbEs"
             }
           ],
           "classList": [],
@@ -490,7 +547,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "Pc2lQ6"
+              "value": "L2rAHQ"
             }
           ],
           "classList": [],
@@ -521,7 +578,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "jFRT2f"
+              "value": "84b3dl"
             }
           ],
           "classList": [],
@@ -552,7 +609,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "Qj-6Ts"
+              "value": "OIroUZ"
             }
           ],
           "classList": [],
@@ -581,17 +638,40 @@
     },
     {
       "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "IO0vm2"
+        }
+      ],
       "classList": [
         "modal-footer"
       ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
       "children": [
         {
           "name": "Button",
           "nodeName": "bln-button",
+          "elementId": "",
           "attributes": [
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "vKJqRU"
             }
           ],
           "classList": [
@@ -608,6 +688,7 @@
           },
           "styles": [],
           "children": [],
+          "comments": "",
           "type": "core-component",
           "id": "button",
           "expressions": [
@@ -628,10 +709,15 @@
         {
           "name": "Button",
           "nodeName": "bln-button",
+          "elementId": "",
           "attributes": [
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "KQ65ek"
             }
           ],
           "classList": [
@@ -648,6 +734,7 @@
           },
           "styles": [],
           "children": [],
+          "comments": "",
           "type": "core-component",
           "id": "button",
           "expressions": [
@@ -665,7 +752,8 @@
             }
           ]
         }
-      ]
+      ],
+      "comments": ""
     }
   ],
   "variables": [
@@ -693,6 +781,13 @@
       "propertyType": "method"
     },
     {
+      "name": "payslip",
+      "type": "=",
+      "description": "Contains the selected payslip object",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
       "type": "<",
       "name": "result",
       "description": "The result of the modal that is returned after the modal is closed.",
@@ -706,13 +801,6 @@
           "value": "cancel"
         }
       ]
-    },
-    {
-      "name": "payslip",
-      "type": "=",
-      "description": "Contains the selected payslip object",
-      "propertyType": "property",
-      "default": ""
     }
   ],
   "modules": [],

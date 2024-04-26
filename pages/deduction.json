@@ -1,7 +1,7 @@
 {
-  "name": "payroll",
+  "name": "deduction",
   "type": "page",
-  "url": "/payroll",
+  "url": "/deduction",
   "params": {},
   "variables": [
     {
@@ -10,14 +10,10 @@
       "id": "660dfe51f871b7b8ec68d76b"
     },
     {
-      "name": "$modal",
-      "type": "service"
-    },
-    {
-      "name": "getAllPayrolls",
+      "name": "getAllDeduction",
       "type": "method",
-      "description": "Gets all the list of payrolls from the API",
-      "body": "$ctrl.payrollApi.payroll_reporting_services_GetAllPayrolls({\n   ngrokSkipBrowserWarning: 'na'\n}).then(result => {\n   $ctrl.allPayrolls = result.data.payrolls\n   $ctrl.showSpinner = false\n   if ($ctrl.allPayrolls.length < 10) {\n      $ctrl.showPagination = false\n   }\n\n   let startIndex = $ctrl.page === 1 ? 0 : ($ctrl.page - 1) * 10;\n   $ctrl.allPayrolls = $ctrl.allPayrolls.slice(startIndex);\n\n})\n\n\n",
+      "description": "fetches the deductions in the API",
+      "body": "$ctrl.payrollApi.employee_services_payslipItems_GetAllDeductions({\n    ngrokSkipBrowserWarning: \"n/a\"\n}).then(result => {\n    $ctrl.allDeduction = result.data.deductions\n    $ctrl.showSpinner = false\n})",
       "invokeOnLoad": true,
       "isAsync": false,
       "returnType": {
@@ -26,16 +22,22 @@
       "parameters": []
     },
     {
-      "name": "allPayrolls",
+      "name": "allDeduction",
       "type": "array",
-      "description": "Contains the data from the getAllPayrolls",
+      "description": "Stores the value of the deduction from getAllDeduction",
       "children": []
     },
     {
-      "name": "clickRunPayroll",
+      "name": "showSpinner",
+      "type": "property",
+      "description": "Hides and shows the spinner component",
+      "value": "true"
+    },
+    {
+      "name": "createDeduction",
       "type": "method",
-      "description": "Function Linked to the moodal to runPayroll",
-      "body": "$ctrl.$modal.open(\"run-payroll\").then( (result) =>{\n    if (result.result === \"ok\") {\n    $ctrl.payrollApi.payroll_calculation_services_CalculatePayroll(\n        {\n            ngrokSkipBrowserWarning: 'n/a'\n        },\n        {\n            \"payGroupName\": result.chosenPaygGoup,\n            \"runType\": result.chosenRunType,\n            \"startDate\": result.startDate,\n            \"endDate\": result.endDate,\n            \"checkDate\": result.checkDate\n        }\n        ).then(result => {\n            $ctrl.runPayrollResult = result.data\n            $ctrl.getAllPayrolls()\n        })\n    }\n}\n)\n\n\n\n",
+      "description": "method to create deduction",
+      "body": "$ctrl.$modal.open(\"create-deduction\").then( (result) =>{\n    if (result.result === \"ok\") {\n        $ctrl.payrollApi.employee_services_payslipItems_CreateDeduction(\n            {\n                ngrokSkipBrowserWarning: 'n/a'\n            },\n            {\n            \"deductionName\": result.deduction[0],\n            \"type\": result.deduction[1],\n            \"amount\": result.deduction[2],\n            \"employerTax\": result.deduction[3],\n            }\n        ).then(result => {\n            $ctrl.allDeduction = result.data\n            $ctrl.getAllDeduction()\n        })\n    }}\n)\n\n\n\n",
       "invokeOnLoad": false,
       "isAsync": false,
       "returnType": {
@@ -44,28 +46,20 @@
       "parameters": []
     },
     {
-      "name": "runPayrollResult",
-      "type": "array",
-      "description": "Contains the data from the result of the clickRunPayroll",
-      "children": []
-    },
-    {
-      "name": "showSpinner",
-      "type": "property",
-      "description": "Shows and hides the spinner while the table data loads",
-      "value": "true"
-    },
-    {
-      "name": "showPagination",
-      "type": "property",
-      "description": "",
-      "value": "true"
+      "name": "$modal",
+      "type": "service"
     },
     {
       "name": "page",
       "type": "property",
       "description": "",
       "value": "1"
+    },
+    {
+      "name": "showPagination",
+      "type": "property",
+      "description": "",
+      "value": "true"
     }
   ],
   "children": [
@@ -76,7 +70,7 @@
       "attributes": [
         {
           "property": "data-id",
-          "value": "HInGkp"
+          "value": "uQzCFZ"
         }
       ],
       "classList": [
@@ -94,13 +88,13 @@
       "styles": [],
       "children": [
         {
-          "name": "navigation-bar",
-          "nodeName": "navigation-bar",
+          "name": "navigation",
+          "nodeName": "navigation",
           "elementId": "",
           "attributes": [
             {
               "property": "data-id",
-              "value": "6_DuCg"
+              "value": "i_PdzN"
             }
           ],
           "classList": [],
@@ -117,7 +111,7 @@
           "children": [],
           "comments": "",
           "type": "custom-component",
-          "id": "6629d3e395ff897e78610030",
+          "id": "66207e8195ff897e7860fdf8",
           "expressions": []
         },
         {
@@ -127,7 +121,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "sex_79"
+              "value": "fNxAWh"
             }
           ],
           "classList": [],
@@ -160,7 +154,7 @@
               "attributes": [
                 {
                   "property": "data-id",
-                  "value": "6RenPL"
+                  "value": "nGiZyM"
                 }
               ],
               "classList": [
@@ -195,7 +189,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "7n-9Zi"
+                      "value": "MUw65Z"
                     }
                   ],
                   "classList": [],
@@ -238,7 +232,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "S1sGAL"
+                          "value": "GxOfoZ"
                         }
                       ],
                       "classList": [],
@@ -272,20 +266,24 @@
                         {
                           "name": "text",
                           "nodeName": "text",
-                          "textContent": "Payroll",
+                          "textContent": "Deduction",
                           "evaluate": false
                         }
                       ],
                       "comments": ""
                     },
                     {
-                      "name": "span",
-                      "nodeName": "span",
+                      "name": "Button",
+                      "nodeName": "bln-button",
                       "elementId": "",
                       "attributes": [
                         {
+                          "property": "core",
+                          "value": ""
+                        },
+                        {
                           "property": "data-id",
-                          "value": "4sgAhP"
+                          "value": "gHfibN"
                         }
                       ],
                       "classList": [],
@@ -298,87 +296,52 @@
                         "variable": "",
                         "trackByIndex": false
                       },
-                      "styles": [],
-                      "children": [
+                      "styles": [
                         {
-                          "name": "Button",
-                          "nodeName": "bln-button",
-                          "elementId": "",
-                          "attributes": [
-                            {
-                              "property": "core",
-                              "value": ""
-                            },
-                            {
-                              "property": "data-id",
-                              "value": "KmQUgt"
-                            }
-                          ],
-                          "classList": [],
-                          "conditionalClasses": [],
-                          "contentType": "text",
-                          "displayExpression": "",
-                          "events": {},
-                          "iterate": {
-                            "array": "",
-                            "variable": "",
-                            "trackByIndex": false
-                          },
-                          "styles": [
-                            {
-                              "property": "--bln-button-default-bg-color",
-                              "value": "#3aafa9",
-                              "enabled": true
-                            },
-                            {
-                              "property": "--bln-button-default-hovered-bg-color",
-                              "value": "#2e8c87",
-                              "enabled": true
-                            },
-                            {
-                              "property": "--bln-button-default-active-bg-color",
-                              "value": "#297b76",
-                              "enabled": true
-                            },
-                            {
-                              "property": "--bln-button-default-text-color",
-                              "value": "#ffffff",
-                              "enabled": true
-                            },
-                            {
-                              "property": "--bln-button-default-hovered-text-color",
-                              "value": "#ffffff",
-                              "enabled": true
-                            },
-                            {
-                              "property": "--bln-button-default-active-text-color",
-                              "value": "#ffffff",
-                              "enabled": true
-                            }
-                          ],
-                          "children": [],
-                          "comments": "",
-                          "type": "core-component",
-                          "id": "button",
-                          "expressions": [
-                            {
-                              "expression": "\"Run payroll\"",
-                              "to": "label"
-                            },
-                            {
-                              "expression": "$ctrl.clickRunPayroll()",
-                              "to": "onClick"
-                            }
-                          ]
+                          "property": "--bln-button-default-bg-color",
+                          "value": "#3aafa9",
+                          "enabled": true
                         },
                         {
-                          "name": "text",
-                          "nodeName": "text",
-                          "textContent": "",
-                          "evaluate": false
+                          "property": "--bln-button-default-hovered-bg-color",
+                          "value": "#2e8c87",
+                          "enabled": true
+                        },
+                        {
+                          "property": "--bln-button-default-active-bg-color",
+                          "value": "#297b76",
+                          "enabled": true
+                        },
+                        {
+                          "property": "--bln-button-default-text-color",
+                          "value": "#ffffff",
+                          "enabled": true
+                        },
+                        {
+                          "property": "--bln-button-default-hovered-text-color",
+                          "value": "#ffffff",
+                          "enabled": true
+                        },
+                        {
+                          "property": "--bln-button-default-active-text-color",
+                          "value": "#ffffff",
+                          "enabled": true
                         }
                       ],
-                      "comments": ""
+                      "children": [],
+                      "comments": "",
+                      "type": "core-component",
+                      "id": "button",
+                      "expressions": [
+                        {
+                          "expression": "\"Create deduction\"",
+                          "to": "label"
+                        },
+                        {
+                          "expression": "$ctrl.createDeduction()",
+                          "to": "onClick"
+                        }
+                      ]
                     }
                   ],
                   "comments": ""
@@ -390,7 +353,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "-EP83R"
+                      "value": "-mkWJu"
                     }
                   ],
                   "classList": [],
@@ -417,7 +380,7 @@
               "attributes": [
                 {
                   "property": "data-id",
-                  "value": "_ftk-K"
+                  "value": "Qr_GzK"
                 }
               ],
               "classList": [
@@ -456,7 +419,7 @@
                     },
                     {
                       "property": "data-id",
-                      "value": "1U1tf7"
+                      "value": "VMyG5S"
                     }
                   ],
                   "classList": [],
@@ -502,11 +465,11 @@
                   "id": "table",
                   "expressions": [
                     {
-                      "expression": "[{\n        name: \"Id\",\n        valueKey: 'payrollId',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Paygroup\",\n        valueKey: 'payGroupName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Run type\",\n        valueKey: 'runType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Start date\",\n        valueKey: 'startDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"End date\",\n        valueKey: 'endDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Check date\",\n        valueKey: 'checkDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                      "expression": "[{\n        name: \"Deduction name\",\n        valueKey: 'deductionName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Deduction type\",\n        valueKey: 'deductionType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Amount\",\n        valueKey: 'amount',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Employer tax\",\n        valueKey: 'employerTax',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
                       "to": "columns"
                     },
                     {
-                      "expression": "$ctrl.allPayrolls",
+                      "expression": "$ctrl.allDeduction",
                       "to": "data"
                     },
                     {
@@ -516,6 +479,10 @@
                     {
                       "expression": "$ctrl.$state.go(\"payslips\", {id: row.payrollId})\n ",
                       "to": "onSelection"
+                    },
+                    {
+                      "expression": "false",
+                      "to": "enableEditing"
                     },
                     {
                       "expression": "true",
@@ -542,7 +509,7 @@
                     },
                     {
                       "property": "data-id",
-                      "value": "j_WSWv"
+                      "value": "2LpO4f"
                     }
                   ],
                   "classList": [],
@@ -566,7 +533,7 @@
                       "to": "currentPage"
                     },
                     {
-                      "expression": "$ctrl.getAllPayrolls()",
+                      "expression": "$ctrl.getAllDeduction()",
                       "to": "onPageChange"
                     }
                   ]
@@ -582,7 +549,7 @@
                     },
                     {
                       "property": "data-id",
-                      "value": "WeTG7z"
+                      "value": "v0qIu6"
                     }
                   ],
                   "classList": [

@@ -12,6 +12,14 @@
       "id": "660dfe51f871b7b8ec68d76b"
     },
     {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "$stateParams",
+      "type": "service"
+    },
+    {
       "name": "getEmployeePayslips",
       "type": "method",
       "description": "function to cal all the Employee Payslips from the API",
@@ -28,10 +36,6 @@
       "type": "array",
       "description": "Contains the data from the getEmployeePayslips",
       "children": []
-    },
-    {
-      "name": "$stateParams",
-      "type": "service"
     },
     {
       "name": "cardData",
@@ -59,10 +63,6 @@
         "groupId",
         "id"
       ]
-    },
-    {
-      "name": "$modal",
-      "type": "service"
     },
     {
       "name": "handlePayslipSelection",
@@ -99,7 +99,7 @@
       "attributes": [
         {
           "property": "data-id",
-          "value": "W4WU0E"
+          "value": "RZlcYh"
         }
       ],
       "classList": [
@@ -123,7 +123,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "-rKKwk"
+              "value": "tkT9Pm"
             }
           ],
           "classList": [],
@@ -150,7 +150,7 @@
           "attributes": [
             {
               "property": "data-id",
-              "value": "CjyQwA"
+              "value": "gIs7d-"
             }
           ],
           "classList": [],
@@ -183,7 +183,7 @@
               "attributes": [
                 {
                   "property": "data-id",
-                  "value": "BIaAVY"
+                  "value": "nhImAd"
                 }
               ],
               "classList": [
@@ -218,7 +218,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "v9C5mJ"
+                      "value": "ykrxlw"
                     }
                   ],
                   "classList": [],
@@ -261,7 +261,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "6LQW1f"
+                          "value": "SR2d-P"
                         }
                       ],
                       "classList": [],
@@ -311,7 +311,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "rC84_f"
+                      "value": "CCBoLL"
                     }
                   ],
                   "classList": [],
@@ -338,7 +338,7 @@
               "attributes": [
                 {
                   "property": "data-id",
-                  "value": "T_R8cN"
+                  "value": "zNQRlu"
                 }
               ],
               "classList": [
@@ -362,7 +362,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "wY9cO9"
+                      "value": "AuFREs"
                     }
                   ],
                   "classList": [
@@ -386,7 +386,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "2asvGN"
+                          "value": "BoOhJ4"
                         }
                       ],
                       "classList": [],
@@ -417,7 +417,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "splNNM"
+                          "value": "9Znci2"
                         }
                       ],
                       "classList": [],
@@ -451,7 +451,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "ghYfixrb"
+                      "value": "TMfhq9"
                     }
                   ],
                   "classList": [
@@ -475,7 +475,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "o_esZ8em"
+                          "value": "b9OiFc"
                         }
                       ],
                       "classList": [],
@@ -506,7 +506,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "14JPEqS2"
+                          "value": "5LuvOp"
                         }
                       ],
                       "classList": [],
@@ -540,7 +540,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "uv5XWo80"
+                      "value": "NUJtbf"
                     }
                   ],
                   "classList": [
@@ -564,7 +564,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "K1e4JC_7"
+                          "value": "5lMvow"
                         }
                       ],
                       "classList": [],
@@ -595,7 +595,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "lGfh_yQ_"
+                          "value": "MahylK"
                         }
                       ],
                       "classList": [],
@@ -629,7 +629,7 @@
                   "attributes": [
                     {
                       "property": "data-id",
-                      "value": "sNpMBg8e"
+                      "value": "UofrDv"
                     }
                   ],
                   "classList": [
@@ -653,7 +653,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "hnVprfsR"
+                          "value": "IvaFrE"
                         }
                       ],
                       "classList": [],
@@ -684,7 +684,7 @@
                       "attributes": [
                         {
                           "property": "data-id",
-                          "value": "oy8CCz_m"
+                          "value": "Soat9b"
                         }
                       ],
                       "classList": [],
@@ -721,7 +721,7 @@
               "attributes": [
                 {
                   "property": "data-id",
-                  "value": "o40qsl"
+                  "value": "pQQtX0"
                 }
               ],
               "classList": [
@@ -760,7 +760,7 @@
                     },
                     {
                       "property": "data-id",
-                      "value": "s7sY30Cu"
+                      "value": "Di6-Lo"
                     }
                   ],
                   "classList": [],
@@ -844,12 +844,12 @@
                   "elementId": "",
                   "attributes": [
                     {
-                      "property": "data-id",
-                      "value": "ymORfm"
-                    },
-                    {
                       "property": "core",
                       "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "dZHFZ2"
                     }
                   ],
                   "classList": [],
@@ -884,12 +884,12 @@
                   "elementId": "",
                   "attributes": [
                     {
-                      "property": "data-id",
-                      "value": "PqLVTR"
-                    },
-                    {
                       "property": "core",
                       "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "tG29TK"
                     }
                   ],
                   "classList": [
