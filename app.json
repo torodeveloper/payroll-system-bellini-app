@@ -1,7 +1,7 @@
 {
   "name": "payroll-system_1",
   "type": "app",
-  "defaultPage": "benefits",
+  "defaultPage": "payroll",
   "config": {
     "config": {
       "parameters": [],

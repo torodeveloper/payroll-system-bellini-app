@@ -1,0 +1,56 @@
+{
+  "type": "custom-component",
+  "name": "navigation-bar",
+  "nodeName": "navigation-bar",
+  "children": [
+    {
+      "name": "Navigation",
+      "nodeName": "bln-navigation",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "core",
+          "value": ""
+        },
+        {
+          "property": "data-id",
+          "value": "0LJVow"
+        }
+      ],
+      "classList": [],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [],
+      "comments": "",
+      "type": "core-component",
+      "id": "navigation",
+      "expressions": [
+        {
+          "expression": "\"Payroll System\"",
+          "to": "label"
+        },
+        {
+          "expression": "\"right\"",
+          "to": "alignment"
+        },
+        {
+          "expression": "[{\n        label: \"Employees\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Payroll\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"payroll\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Paygroups\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"paygroups\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Roles\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"roles\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Benefits\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"benefits\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    }\n]",
+          "to": "menuItems"
+        }
+      ]
+    }
+  ],
+  "variables": [],
+  "bindings": [],
+  "modules": [],
+  "externalScripts": [],
+  "externalStylesheets": []
+}

@@ -1,14 +1,17 @@
 {
   "type": "custom-component",
-  "name": "new-paygroup",
-  "nodeName": "new-paygroup",
-  "description": null,
+  "name": "run-payroll",
   "children": [
     {
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "yXVmAU"
+        }
+      ],
       "classList": [
         "modal-header"
       ],
@@ -27,7 +30,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "ajyGYO"
+            }
+          ],
           "classList": [
             "modal-title"
           ],
@@ -45,7 +53,7 @@
             {
               "name": "text",
               "nodeName": "text",
-              "textContent": "Create New Paygroup",
+              "textContent": "Run payroll\n",
               "evaluate": false
             }
           ],
@@ -55,7 +63,12 @@
           "name": "div",
           "nodeName": "div",
           "elementId": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "1tPWF4"
+            }
+          ],
           "classList": [
             "modal-close"
           ],
@@ -88,7 +101,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "cXrtPe"
+        }
+      ],
       "classList": [
         "modal-body"
       ],
@@ -101,69 +119,8 @@
         "variable": "",
         "trackByIndex": false
       },
-      "styles": [
-        {
-          "property": "min-height",
-          "value": "100px",
-          "enabled": true
-        }
-      ],
+      "styles": [],
       "children": [
-        {
-          "name": "Text Input",
-          "nodeName": "bln-text-input",
-          "elementId": "",
-          "attributes": [
-            {
-              "property": "core",
-              "value": ""
-            }
-          ],
-          "classList": [],
-          "conditionalClasses": [],
-          "contentType": "text",
-          "displayExpression": "",
-          "events": {},
-          "iterate": {
-            "array": "",
-            "variable": "",
-            "trackByIndex": false
-          },
-          "styles": [],
-          "children": [],
-          "comments": "",
-          "type": "core-component",
-          "id": "text-input",
-          "expressions": [
-            {
-              "expression": "\"Paygroup Name\"",
-              "to": "label"
-            },
-            {
-              "expression": "\"Enter Paygroup Name\"",
-              "to": "placeholder"
-            },
-            {
-              "expression": "$ctrl.paygroupName",
-              "to": "value"
-            },
-            {
-              "expression": "false",
-              "to": "isRequired"
-            },
-            {
-              "expression": "1",
-              "to": "minLength"
-            },
-            {
-              "expression": "$ctrl.validateData(newValue)",
-              "to": "onValueChange"
-            }
-          ],
-          "formControl": {
-            "modelName": "value"
-          }
-        },
         {
           "name": "Dropdown",
           "nodeName": "bln-dropdown",
@@ -172,6 +129,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "gXpWhC"
             }
           ],
           "classList": [],
@@ -191,20 +152,212 @@
           "id": "dropdown",
           "expressions": [
             {
-              "expression": "\"Payroll Period\"",
+              "expression": "\"Paygroup\"",
               "to": "label"
             },
             {
-              "expression": "[{\n        label: \"MONTHLY\",\n        value: \"MONTHLY\"\n    },\n    {\n        label: \"SEMI-MONTHLY\",\n        value: \"SEMI-MONTHLY\"\n    },\n    {\n        label: \"WEEKLY\",\n        value: \"WEEKLY\"\n    },\n    {\n        label: \"BI-WEEKLY\",\n        value: \"BI-WEEKLY\"\n    }\n]",
+              "expression": "\"Select paygroup\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.fetchPayGroup",
               "to": "values"
             },
             {
-              "expression": "$ctrl.payrollPeriod",
+              "expression": "$ctrl.chosenPaygGoup",
               "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Dropdown",
+          "nodeName": "bln-dropdown",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
             },
             {
-              "expression": "$ctrl.validateData(newValue)",
-              "to": "onValueChange"
+              "property": "data-id",
+              "value": "xnVajy"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "dropdown",
+          "expressions": [
+            {
+              "expression": "\"Select run type\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "\"Run type\"",
+              "to": "label"
+            },
+            {
+              "expression": "$ctrl.fetchRunType",
+              "to": "values"
+            },
+            {
+              "expression": "$ctrl.chosenRunType",
+              "to": "value"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "R_OG6t"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"Start\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select start date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.startDate",
+              "to": "dateValue"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "LgTmMP"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"End\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select end date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.endDate",
+              "to": "dateValue"
+            }
+          ],
+          "formControl": {
+            "modelName": "value"
+          }
+        },
+        {
+          "name": "Date Time Picker",
+          "nodeName": "bln-date-time-picker",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "core",
+              "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "XIRgLE"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "core-component",
+          "id": "date-time-picker",
+          "expressions": [
+            {
+              "expression": "\"Check date\"",
+              "to": "label"
+            },
+            {
+              "expression": "\"Select check date\"",
+              "to": "placeholder"
+            },
+            {
+              "expression": "$ctrl.checkDate",
+              "to": "dateValue"
             }
           ],
           "formControl": {
@@ -218,7 +371,12 @@
       "name": "div",
       "nodeName": "div",
       "elementId": "",
-      "attributes": [],
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "9DJtK2"
+        }
+      ],
       "classList": [
         "modal-footer"
       ],
@@ -241,6 +399,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "1gWYEh"
             }
           ],
           "classList": [
@@ -283,6 +445,10 @@
             {
               "property": "core",
               "value": ""
+            },
+            {
+              "property": "data-id",
+              "value": "l_liSs"
             }
           ],
           "classList": [
@@ -297,28 +463,7 @@
             "variable": "",
             "trackByIndex": false
           },
-          "styles": [
-            {
-              "property": "--bln-button-primary-bg-color",
-              "value": "#3AAFA9",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-primary-hovered-bg-color",
-              "value": "#2e8c87",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-primary-active-bg-color",
-              "value": "#297b76",
-              "enabled": true
-            },
-            {
-              "property": "--bln-button-padding",
-              "value": "7px 25px",
-              "enabled": true
-            }
-          ],
+          "styles": [],
           "children": [],
           "comments": "",
           "type": "core-component",
@@ -329,16 +474,12 @@
               "to": "type"
             },
             {
-              "expression": "\"Create\"",
+              "expression": "'OK'",
               "to": "label"
             },
             {
               "expression": "$ctrl.onOkClick()",
               "to": "onClick"
-            },
-            {
-              "expression": "$ctrl.isIncomplete",
-              "to": "isDisabled"
             }
           ]
         }
@@ -347,6 +488,11 @@
     }
   ],
   "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dfe51f871b7b8ec68d76b"
+    },
     {
       "type": "method",
       "name": "onOkClick",
@@ -362,27 +508,61 @@
       "parameters": []
     },
     {
-      "name": "isIncomplete",
-      "type": "property",
-      "description": "",
-      "value": "true"
-    },
-    {
-      "name": "validateData",
+      "name": "handleFetchRunPayroll",
       "type": "method",
-      "description": "This function is used to validate data if the data need is incomplete.",
-      "body": "if ($ctrl.paygroupName && $ctrl.paygroupName.length >= 1 && $ctrl.payrollPeriod && $ctrl.payrollPeriod.length >= 1) {\n    $ctrl.isIncomplete = false;\n}\n",
-      "invokeOnLoad": false,
+      "description": "Runs the post method handleFetchRunPayroll after the values are defined",
+      "body": "$ctrl.payrollApi.employee_services_paygroup_GetAllPayGroups({\n    ngrokSkipBrowserWarning: 'toro'\n}).then(result => {\n    // Assuming result.data.payGroup is an array\n    $ctrl.fetchRunType = result.data\n    $ctrl.fetchPayGroup = result.data.payGroup.map(p => ({\n        label: p.pay_group_name,\n        value: p.pay_group_name,\n    }));\n\n    $ctrl.fetchRunType= [\n    {label: 'REGULAR', value:'REGULAR'},\n    {label: 'OFF-CYCLE', value:'NONE-REGULAR'},\n    {label: 'CORRECTION', value: 'CORRECTION',},\n    ]\n}).catch(error => {\n    // Handle errors\n    console.error('Error fetching or mapping pay groups:', error);\n    // Optionally, set $ctrl.fetchedPaygroupName to an empty array or handle the error in another way\n   $ctrl.fetchPayGroup = [];\n});\n\n ",
+      "invokeOnLoad": true,
       "isAsync": false,
       "returnType": {
         "name": "any"
       },
-      "parameters": [
-        "newValue"
-      ]
+      "parameters": []
     }
   ],
   "bindings": [
+    {
+      "name": "checkDate",
+      "type": "=",
+      "description": "Contains the selected checkDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "chosenPaygGoup",
+      "type": "=",
+      "description": "Contains the chosenPayGroup",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "chosenRunType",
+      "type": "=",
+      "description": "Contains the runType",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "endDate",
+      "type": "=",
+      "description": "Contains the endDate",
+      "propertyType": "property",
+      "default": ""
+    },
+    {
+      "name": "fetchPayGroup",
+      "type": "=",
+      "description": "Contains the fetchPayGroup",
+      "propertyType": "array",
+      "default": ""
+    },
+    {
+      "name": "fetchRunType",
+      "type": "=",
+      "description": "Contains the fetchRunType",
+      "propertyType": "array",
+      "default": ""
+    },
     {
       "type": "<",
       "name": "onClose",
@@ -406,22 +586,14 @@
       ]
     },
     {
-      "name": "paygroupName",
-      "type": "<",
-      "description": "",
-      "propertyType": "property",
-      "default": ""
-    },
-    {
-      "name": "payrollPeriod",
-      "type": "<",
-      "description": "",
+      "name": "startDate",
+      "type": "=",
+      "description": "Contains the startDate",
       "propertyType": "property",
       "default": ""
     }
   ],
   "modules": [],
-  "formControl": null,
   "externalScripts": [],
   "externalStylesheets": []
 }

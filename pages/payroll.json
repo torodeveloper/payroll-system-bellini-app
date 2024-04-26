@@ -1,0 +1,617 @@
+{
+  "name": "payroll",
+  "type": "page",
+  "url": "/payroll",
+  "params": {},
+  "variables": [
+    {
+      "name": "payrollApi",
+      "type": "open-api",
+      "id": "660dfe51f871b7b8ec68d76b"
+    },
+    {
+      "name": "$modal",
+      "type": "service"
+    },
+    {
+      "name": "getAllPayrolls",
+      "type": "method",
+      "description": "Gets all the list of payrolls from the API",
+      "body": "$ctrl.payrollApi.payroll_reporting_services_GetAllPayrolls({\n   ngrokSkipBrowserWarning: 'na'\n}).then(result => {\n   $ctrl.allPayrolls = result.data.payrolls\n   $ctrl.showSpinner = false\n   if ($ctrl.allPayrolls.length < 10) {\n      $ctrl.showPagination = false\n   }\n\n   let startIndex = $ctrl.page === 1 ? 0 : ($ctrl.page - 1) * 10;\n   $ctrl.allPayrolls = $ctrl.allPayrolls.slice(startIndex);\n\n})\n\n\n",
+      "invokeOnLoad": true,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "allPayrolls",
+      "type": "array",
+      "description": "Contains the data from the getAllPayrolls",
+      "children": []
+    },
+    {
+      "name": "clickRunPayroll",
+      "type": "method",
+      "description": "Function Linked to the moodal to runPayroll",
+      "body": "$ctrl.$modal.open(\"run-payroll\").then( (result) =>{\n    if (result.result === \"ok\") {\n    $ctrl.payrollApi.payroll_calculation_services_CalculatePayroll(\n        {\n            ngrokSkipBrowserWarning: 'n/a'\n        },\n        {\n            \"payGroupName\": result.chosenPaygGoup,\n            \"runType\": result.chosenRunType,\n            \"startDate\": result.startDate,\n            \"endDate\": result.endDate,\n            \"checkDate\": result.checkDate\n        }\n        ).then(result => {\n            $ctrl.runPayrollResult = result.data\n            $ctrl.getAllPayrolls()\n        })\n    }\n}\n)\n\n\n\n",
+      "invokeOnLoad": false,
+      "isAsync": false,
+      "returnType": {
+        "name": "any"
+      },
+      "parameters": []
+    },
+    {
+      "name": "runPayrollResult",
+      "type": "array",
+      "description": "Contains the data from the result of the clickRunPayroll",
+      "children": []
+    },
+    {
+      "name": "showSpinner",
+      "type": "property",
+      "description": "Shows and hides the spinner while the table data loads",
+      "value": "true"
+    },
+    {
+      "name": "showPagination",
+      "type": "property",
+      "description": "",
+      "value": "true"
+    },
+    {
+      "name": "page",
+      "type": "property",
+      "description": "",
+      "value": "1"
+    }
+  ],
+  "children": [
+    {
+      "name": "div",
+      "nodeName": "div",
+      "elementId": "",
+      "attributes": [
+        {
+          "property": "data-id",
+          "value": "HInGkp"
+        }
+      ],
+      "classList": [
+        "app-container"
+      ],
+      "conditionalClasses": [],
+      "contentType": "text",
+      "displayExpression": "",
+      "events": {},
+      "iterate": {
+        "array": "",
+        "variable": "",
+        "trackByIndex": false
+      },
+      "styles": [],
+      "children": [
+        {
+          "name": "navigation-bar",
+          "nodeName": "navigation-bar",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "6_DuCg"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [],
+          "children": [],
+          "comments": "",
+          "type": "custom-component",
+          "id": "6629d3e395ff897e78610030",
+          "expressions": []
+        },
+        {
+          "name": "div",
+          "nodeName": "div",
+          "elementId": "",
+          "attributes": [
+            {
+              "property": "data-id",
+              "value": "sex_79"
+            }
+          ],
+          "classList": [],
+          "conditionalClasses": [],
+          "contentType": "text",
+          "displayExpression": "",
+          "events": {},
+          "iterate": {
+            "array": "",
+            "variable": "",
+            "trackByIndex": false
+          },
+          "styles": [
+            {
+              "property": "width",
+              "value": "90%",
+              "enabled": true
+            },
+            {
+              "property": "margin",
+              "value": "0 auto",
+              "enabled": true
+            }
+          ],
+          "children": [
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "6RenPL"
+                }
+              ],
+              "classList": [
+                "eHeader"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "margin-top",
+                  "value": "20px",
+                  "enabled": true
+                },
+                {
+                  "property": "height",
+                  "value": "5%",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "div",
+                  "nodeName": "div",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "7n-9Zi"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "padding",
+                      "value": "0",
+                      "enabled": true
+                    },
+                    {
+                      "property": "margin",
+                      "value": "0",
+                      "enabled": true
+                    },
+                    {
+                      "property": "height",
+                      "value": "50px",
+                      "enabled": true
+                    },
+                    {
+                      "property": "display",
+                      "value": "flex",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [
+                    {
+                      "name": "p",
+                      "nodeName": "p",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "S1sGAL"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [
+                        {
+                          "property": "font-weight",
+                          "value": "bold",
+                          "enabled": true
+                        },
+                        {
+                          "property": "color",
+                          "value": "#2B7A78",
+                          "enabled": true
+                        },
+                        {
+                          "property": "font-size",
+                          "value": "20px",
+                          "enabled": true
+                        }
+                      ],
+                      "children": [
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "Payroll",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    },
+                    {
+                      "name": "span",
+                      "nodeName": "span",
+                      "elementId": "",
+                      "attributes": [
+                        {
+                          "property": "data-id",
+                          "value": "4sgAhP"
+                        }
+                      ],
+                      "classList": [],
+                      "conditionalClasses": [],
+                      "contentType": "text",
+                      "displayExpression": "",
+                      "events": {},
+                      "iterate": {
+                        "array": "",
+                        "variable": "",
+                        "trackByIndex": false
+                      },
+                      "styles": [],
+                      "children": [
+                        {
+                          "name": "Button",
+                          "nodeName": "bln-button",
+                          "elementId": "",
+                          "attributes": [
+                            {
+                              "property": "core",
+                              "value": ""
+                            },
+                            {
+                              "property": "data-id",
+                              "value": "KmQUgt"
+                            }
+                          ],
+                          "classList": [],
+                          "conditionalClasses": [],
+                          "contentType": "text",
+                          "displayExpression": "",
+                          "events": {},
+                          "iterate": {
+                            "array": "",
+                            "variable": "",
+                            "trackByIndex": false
+                          },
+                          "styles": [
+                            {
+                              "property": "--bln-button-default-bg-color",
+                              "value": "#3aafa9",
+                              "enabled": true
+                            },
+                            {
+                              "property": "--bln-button-default-hovered-bg-color",
+                              "value": "#2e8c87",
+                              "enabled": true
+                            },
+                            {
+                              "property": "--bln-button-default-active-bg-color",
+                              "value": "#297b76",
+                              "enabled": true
+                            },
+                            {
+                              "property": "--bln-button-default-text-color",
+                              "value": "#ffffff",
+                              "enabled": true
+                            },
+                            {
+                              "property": "--bln-button-default-hovered-text-color",
+                              "value": "#ffffff",
+                              "enabled": true
+                            },
+                            {
+                              "property": "--bln-button-default-active-text-color",
+                              "value": "#ffffff",
+                              "enabled": true
+                            }
+                          ],
+                          "children": [],
+                          "comments": "",
+                          "type": "core-component",
+                          "id": "button",
+                          "expressions": [
+                            {
+                              "expression": "\"Run payroll\"",
+                              "to": "label"
+                            },
+                            {
+                              "expression": "$ctrl.clickRunPayroll()",
+                              "to": "onClick"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "text",
+                          "nodeName": "text",
+                          "textContent": "",
+                          "evaluate": false
+                        }
+                      ],
+                      "comments": ""
+                    }
+                  ],
+                  "comments": ""
+                },
+                {
+                  "name": "hr",
+                  "nodeName": "hr",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "data-id",
+                      "value": "-EP83R"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": ""
+                }
+              ],
+              "comments": ""
+            },
+            {
+              "name": "div",
+              "nodeName": "div",
+              "elementId": "",
+              "attributes": [
+                {
+                  "property": "data-id",
+                  "value": "_ftk-K"
+                }
+              ],
+              "classList": [
+                "table-container"
+              ],
+              "conditionalClasses": [],
+              "contentType": "text",
+              "displayExpression": "",
+              "events": {},
+              "iterate": {
+                "array": "",
+                "variable": "",
+                "trackByIndex": false
+              },
+              "styles": [
+                {
+                  "property": "margin",
+                  "value": "20px",
+                  "enabled": true
+                },
+                {
+                  "property": "padding-bottom",
+                  "value": "50px",
+                  "enabled": true
+                }
+              ],
+              "children": [
+                {
+                  "name": "Table",
+                  "nodeName": "bln-table",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "1U1tf7"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [
+                    {
+                      "property": "--bln-table-height",
+                      "value": "100%",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-header-bg-color",
+                      "value": "#DEF2F1",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-bg-color",
+                      "value": "#ffffff",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-hovered-bg-color",
+                      "value": "#cccccc",
+                      "enabled": true
+                    },
+                    {
+                      "property": "--bln-table-secondary-bg-color",
+                      "value": "#ffffff",
+                      "enabled": true
+                    }
+                  ],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "table",
+                  "expressions": [
+                    {
+                      "expression": "[{\n        name: \"Id\",\n        valueKey: 'payrollId',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Paygroup\",\n        valueKey: 'payGroupName',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Run type\",\n        valueKey: 'runType',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Start date\",\n        valueKey: 'startDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"End date\",\n        valueKey: 'endDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    },\n    {\n        name: \"Check date\",\n        valueKey: 'checkDate',\n        enableSorting: true,\n        sortBy: \"none\",\n        enableFiltering: false,\n        enablePinning: false,\n        type: \"string\",\n        formatter: '',\n        cellTooltip: ''\n    }\n]",
+                      "to": "columns"
+                    },
+                    {
+                      "expression": "$ctrl.allPayrolls",
+                      "to": "data"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "enableRowSelection"
+                    },
+                    {
+                      "expression": "$ctrl.$state.go(\"payslips\", {id: row.payrollId})\n ",
+                      "to": "onSelection"
+                    },
+                    {
+                      "expression": "true",
+                      "to": "enablePagination"
+                    },
+                    {
+                      "expression": "10",
+                      "to": "pageSize"
+                    },
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
+                    }
+                  ]
+                },
+                {
+                  "name": "Pagination",
+                  "nodeName": "bln-pagination",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "j_WSWv"
+                    }
+                  ],
+                  "classList": [],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "$ctrl.showPagination",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "pagination",
+                  "expressions": [
+                    {
+                      "expression": "$ctrl.page",
+                      "to": "currentPage"
+                    },
+                    {
+                      "expression": "$ctrl.getAllPayrolls()",
+                      "to": "onPageChange"
+                    }
+                  ]
+                },
+                {
+                  "name": "Spinner",
+                  "nodeName": "bln-spinner",
+                  "elementId": "",
+                  "attributes": [
+                    {
+                      "property": "core",
+                      "value": ""
+                    },
+                    {
+                      "property": "data-id",
+                      "value": "WeTG7z"
+                    }
+                  ],
+                  "classList": [
+                    "spinner"
+                  ],
+                  "conditionalClasses": [],
+                  "contentType": "text",
+                  "displayExpression": "$ctrl.showSpinner",
+                  "events": {},
+                  "iterate": {
+                    "array": "",
+                    "variable": "",
+                    "trackByIndex": false
+                  },
+                  "styles": [],
+                  "children": [],
+                  "comments": "",
+                  "type": "core-component",
+                  "id": "spinner",
+                  "expressions": []
+                }
+              ],
+              "comments": ""
+            }
+          ],
+          "comments": ""
+        }
+      ],
+      "comments": ""
+    }
+  ]
+}
