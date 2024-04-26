@@ -1,7 +1,3 @@
-new-role {
-
-}
-
-.small-input {
+new-role .small-input {
     width: 30%;
 }
