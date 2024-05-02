@@ -1,7 +1,7 @@
 {
   "type": "custom-component",
-  "name": "delete",
-  "nodeName": "delete",
+  "name": "delete-earning",
+  "nodeName": "delete-earning",
   "children": [
     {
       "name": "div",
@@ -54,8 +54,8 @@
             {
               "name": "text",
               "nodeName": "text",
-              "textContent": "\"Delete \" + $ctrl.obj",
-              "evaluate": true
+              "textContent": "Delete earning",
+              "evaluate": false
             }
           ],
           "comments": ""
@@ -147,8 +147,8 @@
             {
               "name": "text",
               "nodeName": "text",
-              "textContent": "\"Are you sure you want to delete this \" + $ctrl.obj +\"?\"",
-              "evaluate": true
+              "textContent": "Are you sure you want to delete this earning?",
+              "evaluate": false
             }
           ],
           "comments": ""
