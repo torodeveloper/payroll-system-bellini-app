@@ -330,13 +330,6 @@
           "value": "cancel"
         }
       ]
-    },
-    {
-      "name": "obj",
-      "type": "=",
-      "description": "Contains the type of object that will be deleted",
-      "propertyType": "property",
-      "default": "\"\""
     }
   ],
   "modules": [],

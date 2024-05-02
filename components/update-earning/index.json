@@ -54,7 +54,7 @@
             {
               "name": "text",
               "nodeName": "text",
-              "textContent": "\"Update earning \" + $ctrl.earningType",
+              "textContent": "\"Update \" + $ctrl.earningType",
               "evaluate": true
             }
           ],
