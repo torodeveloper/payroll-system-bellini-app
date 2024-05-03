@@ -2,6 +2,7 @@
   "type": "custom-component",
   "name": "navigation-bar",
   "nodeName": "navigation-bar",
+  "description": null,
   "children": [
     {
       "name": "Navigation",
@@ -42,7 +43,7 @@
           "to": "alignment"
         },
         {
-          "expression": "[{\n        label: \"Payroll\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"payroll\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Employees\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"employees\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Paygroups\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"paygroups\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Roles\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"roles\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Benefits\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"benefits\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    }\n]",
+          "expression": "[{\n        label: \"Payroll\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"payroll\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Employees\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"employees\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Paygroups\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"paygroups\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"Roles\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        link: {\n            type: \"state\",\n            state: \"roles\",\n            parameters: {}\n        },\n        openIn: \"current-window\"\n    },\n    {\n        label: \"More\",\n        evaluateLabel: false,\n        onClick: \"link\",\n        openIn: \"current-window\",\n        menuItems: [{\n            label: \"Benefits\",\n            evaluateLabel: false,\n            onClick: \"link\",\n            openIn: \"current-window\",\n            menuItems: [],\n            link: {\n                type: \"state\",\n                state: \"benefits\",\n                parameters: {}\n            }\n        }, {\n            label: \"Earnings\",\n            evaluateLabel: false,\n            onClick: \"link\",\n            openIn: \"current-window\",\n            link: {\n                type: \"state\",\n                state: \"earnings\",\n                parameters: {}\n            }\n        }, {\n            label: \"Deductions\",\n            evaluateLabel: false,\n            onClick: \"link\",\n            openIn: \"current-window\",\n            link: {\n                type: \"state\",\n                state: \"deduction\",\n                parameters: {}\n            }\n        }]\n    }\n]",
           "to": "menuItems"
         }
       ]
@@ -51,6 +52,9 @@
   "variables": [],
   "bindings": [],
   "modules": [],
+  "marketplaceId": null,
+  "formControl": null,
+  "transclude": null,
   "externalScripts": [],
   "externalStylesheets": []
 }
